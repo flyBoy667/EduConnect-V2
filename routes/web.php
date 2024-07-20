@@ -23,4 +23,4 @@ Route::get('/', function () {
 Route::get('/login', [AuthController::class, 'login'])->name('auth.login');
 Route::post('/login', [AuthController::class, 'doLogin']);
 
-Route::get('/profile', [TestController::class, 'index'])->name('test.index');
+Route::get('/profile', [TestController::class, 'index'])->name('test.index')->middleware('auth');

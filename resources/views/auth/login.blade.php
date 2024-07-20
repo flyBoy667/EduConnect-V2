@@ -30,7 +30,7 @@
                         <button type="button" class='b b-form i i-more' title='Mais Informações'></button>
                         <p class='field'>
                             <label for='user'>IDENTIFIANT</label>
-                            <input type='text' id='login' name='email' title='Username' value="{{ old('login') }}" }>
+                            <input type='text' id='login' name='login' title='Username' value="{{ old('login') }}" }>
                             <span id='valida' class='i i-warning'></span>
                             @error('login')
                             <span>{{ $message }}</span>

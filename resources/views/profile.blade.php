@@ -9,7 +9,7 @@
 <body>
 <div class="container">
     <h1>Profile</h1>
-    <p>Vous êtes connecté en tant que {{\Illuminate\Support\Facades\Auth::user()->name}}.</p>
+    <p>Vous êtes connecté en tant que {{\Illuminate\Support\Facades\Auth::user()->prenom}}.</p>
 </div>
 </body>
 </html>
