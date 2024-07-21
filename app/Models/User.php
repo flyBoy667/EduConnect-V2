@@ -92,14 +92,14 @@ class User extends Authenticatable
         return $this->hasOne(PersonnelAdministratif::class);
     }
 
-    public function professeurs(): HasMany
+    public function professeurs(): HasOne
     {
-        return $this->hasMany(Professeur::class);
+        return $this->hasOne(Professeur::class);
     }
 
-    public function etudiants(): HasMany
+    public function etudiants(): HasOne
     {
-        return $this->hasMany(Etudiant::class);
+        return $this->hasOne(Etudiant::class);
     }
 
     public function isEtudiant(): bool
