@@ -41,4 +41,5 @@ class Etudiant extends User
             ->withPivot('note_examen', 'note_classe')
             ->withTimestamps();
     }
+
 }

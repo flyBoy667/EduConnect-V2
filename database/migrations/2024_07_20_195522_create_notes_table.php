@@ -12,7 +12,7 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('etudiants_modules_notes', function (Blueprint $table) {
+        Schema::create('etudiant_module', function (Blueprint $table) {
             $table->float('note_examen');
             $table->float('note_classe');
             $table->foreignIdFor(Etudiant::class)->constrained()->cascadeOnDelete();

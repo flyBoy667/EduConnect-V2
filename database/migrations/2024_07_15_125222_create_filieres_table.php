@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->uuid('id')->primary();
             $table->string('nom_filiere')->unique();
             $table->text('description')->nullable();
-            $table->float('montant_formation');
+            $table->decimal('montant_formation', 10, 2); // Précision de 15 chiffres au total, 2 après la virgule
             $table->timestamps();
         });
     }

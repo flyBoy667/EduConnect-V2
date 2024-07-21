@@ -41,4 +41,5 @@ class Module extends BaseModel
             ->withPivot('note_examen', 'note_classe')
             ->withTimestamps();
     }
+
 }
