@@ -1,6 +1,11 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ComptableController;
+use App\Http\Controllers\EtudiantController;
+use App\Http\Controllers\ProfesseurController;
+use App\Http\Controllers\SecretaireController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,5 +27,16 @@ Route::get('/', function () {
 
 Route::get('/login', [AuthController::class, 'login'])->name('auth.login');
 Route::post('/login', [AuthController::class, 'doLogin']);
+Route::delete('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
-Route::get('/profile', [TestController::class, 'index'])->name('test.index')->middleware('auth');
+//Route::get('/profile', [TestController::class, 'index'])->name('test.index')->middleware('auth');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/etudiant', [EtudiantController::class, 'index'])->name('etudiant.index');
+    Route::get('/professeur', [ProfesseurController::class, 'index'])->name('professeur.index');
+    Route::get('/administrateur', [AdminController::class, 'index'])->name('administrateur.index');
+    Route::get('/secretaire', [SecretaireController::class, 'index'])->name('secretaire.index');
+    Route::get('/comptable', [ComptableController::class, 'index'])->name('comptable.index');
+
+
+});

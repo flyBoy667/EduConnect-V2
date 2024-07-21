@@ -33,4 +33,19 @@ class PersonnelAdministratif extends User
     {
         return $this->hasMany(Annonce::class);
     }
+
+    public function isAdmin(): bool
+    {
+        return $this->roles->nom === 'Administrateur';
+    }
+
+    public function isComptable(): bool
+    {
+        return $this->roles->nom === 'Comptable';
+    }
+
+    public function isSecretaire(): bool
+    {
+        return $this->roles->nom === 'Secrétaire';
+    }
 }

@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
@@ -86,9 +87,9 @@ class User extends Authenticatable
         });
     }
 
-    public function personnelAdministratifs(): HasMany
+    public function personnelAdministratifs(): HasOne
     {
-        return $this->hasMany(PersonnelAdministratif::class);
+        return $this->hasOne(PersonnelAdministratif::class);
     }
 
     public function professeurs(): HasMany
@@ -99,6 +100,21 @@ class User extends Authenticatable
     public function etudiants(): HasMany
     {
         return $this->hasMany(Etudiant::class);
+    }
+
+    public function isEtudiant(): bool
+    {
+        return $this->etudiants()->exists();
+    }
+
+    public function isProfesseur(): bool
+    {
+        return $this->professeurs()->exists();
+    }
+
+    public function isPersonnelAdministratif(): bool
+    {
+        return $this->personnelAdministratifs()->exists();
     }
 
 }

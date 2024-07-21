@@ -146,12 +146,12 @@ class DatabaseSeeder extends Seeder
         $comptable = Role::factory()->create(['nom' => "Comptable"]);
         $secretaire = Role::factory()->create(['nom' => "Secrétaire"]);
 
-        // Creer l'admin
+        // Creer l'administrateur
         PersonnelAdministratif::factory()->create([
             'user_id' => User::factory()->create([
-                'nom' => "admin",
-                'prenom' => "admin",
-                'login' => "admin",
+                'nom' => "administrateur",
+                'prenom' => "administrateur",
+                'login' => "administrateur",
                 'password' => Hash::make('123'), // Password: 123
             ]),
             'role_id' => $admin->id, // Administratif
