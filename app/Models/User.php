@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
@@ -84,4 +85,20 @@ class User extends Authenticatable
             $utilisateur->id = (string)Str::uuid();
         });
     }
+
+    public function personnelAdministratifs(): HasMany
+    {
+        return $this->hasMany(PersonnelAdministratif::class);
+    }
+
+    public function professeurs(): HasMany
+    {
+        return $this->hasMany(Professeur::class);
+    }
+
+    public function etudiants(): HasMany
+    {
+        return $this->hasMany(Etudiant::class);
+    }
+
 }

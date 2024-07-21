@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,8 @@ class ProfesseurFactory extends Factory
     public function definition(): array
     {
         return [
-            'specialites' => json_encode($this->faker->randomElements(['Javascript', 'PHP', 'Java', 'Python'], 2)),
-        ];
+            'id' => $this->faker->uuid,
+            'user_id' => User::factory(),
+            'specialites' => json_encode($this->faker->words(3)),];
     }
 }

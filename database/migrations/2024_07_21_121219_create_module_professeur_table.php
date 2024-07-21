@@ -12,12 +12,10 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('ressources', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+        Schema::create('module_professeur', function (Blueprint $table) {
             $table->foreignIdFor(Module::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Professeur::class)->constrained()->cascadeOnDelete();
-            $table->string('nom');
-            $table->string('fichier'); // type File
+            $table->primary(['module_id', 'professeur_id']);
             $table->timestamps();
         });
     }
@@ -27,10 +25,10 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('ressources');
-        Schema::table('ressources', function (Blueprint $table) {
-            $table->dropForeignIdFor(Module::class);
-            $table->dropForeignIdFor(Professeur::class);
+        Schema::dropIfExists('module_professeur');
+        Schema::table('module_professeur', function (Blueprint $table) {
+            $table->dropForeign(Module::class);
+            $table->dropForeign(Professeur::class);
         });
     }
 };

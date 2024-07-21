@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Filiere;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +18,12 @@ class EtudiantFactory extends Factory
      */
     public function definition(): array
     {
-        return [
 
+        return [
+            'id' => $this->faker->uuid,
+            'user_id' => User::factory(),
+            'filiere_id' => Filiere::factory(),
+            'etat_paiement' => $this->faker->randomFloat(2, 0, 1000000),
         ];
     }
 }

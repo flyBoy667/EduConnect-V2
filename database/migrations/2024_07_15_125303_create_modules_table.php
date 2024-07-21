@@ -13,9 +13,8 @@ return new class extends Migration {
     {
         Schema::create('modules', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('nom_cours');
+            $table->string('nom_module')->unique();
             $table->text('description')->nullable();
-            $table->foreignIdFor(Professeur::class)->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
