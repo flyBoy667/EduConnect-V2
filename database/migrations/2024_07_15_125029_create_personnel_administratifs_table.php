@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -14,7 +15,7 @@ return new class extends Migration {
         Schema::create('personnel_administratifs', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
-            $table->integer('role');
+            $table->foreignIdFor(Role::class)->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -27,6 +28,7 @@ return new class extends Migration {
         Schema::dropIfExists('personnel_administratifs');
         Schema::table('personnel_administratifs', function (Blueprint $table) {
             $table->dropForeignIdFor(User::class);
+            $table->dropForeignIdFor(Role::class);
         });
     }
 };

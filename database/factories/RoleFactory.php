@@ -2,14 +2,12 @@
 
 namespace Database\Factories;
 
-use App\Models\Role;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\PersonnelAdministratif>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Role>
  */
-class PersonnelAdministratifFactory extends Factory
+class RoleFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,9 +17,7 @@ class PersonnelAdministratifFactory extends Factory
     public function definition(): array
     {
         return [
-            'id' => $this->faker->uuid,
-            'user_id' => User::factory(),
-            'role_id' => Role::factory(),
+            'nom' => $this->faker->unique()->word,
             'created_at' => now(),
             'updated_at' => now(),
         ];

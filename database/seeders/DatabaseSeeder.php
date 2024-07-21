@@ -8,6 +8,7 @@ use App\Models\Filiere;
 use App\Models\Module;
 use App\Models\PersonnelAdministratif;
 use App\Models\Professeur;
+use App\Models\Role;
 use App\Models\User;
 use Database\Factories\FiliereFactory;
 use Illuminate\Database\Seeder;
@@ -140,6 +141,11 @@ class DatabaseSeeder extends Seeder
         }
 
 
+        //Creer les differents roles
+        $admin = Role::factory()->create(['nom' => "Administrateur"]);
+        $comptable = Role::factory()->create(['nom' => "Comptable"]);
+        $secretaire = Role::factory()->create(['nom' => "Secrétaire"]);
+
         // Creer l'admin
         PersonnelAdministratif::factory()->create([
             'user_id' => User::factory()->create([
@@ -148,7 +154,7 @@ class DatabaseSeeder extends Seeder
                 'login' => "admin",
                 'password' => Hash::make('123'), // Password: 123
             ]),
-            'role' => 1, // Administratif
+            'role_id' => $admin->id, // Administratif
         ]);
 
 //         Creer le comptable
@@ -159,7 +165,7 @@ class DatabaseSeeder extends Seeder
                 'login' => "comptable",
                 'password' => Hash::make('123'), // Password: 123
             ]),
-            'role' => 2, // comptable
+            'role_id' => $comptable->id, // comptable
         ]);
 //
 //        // Creer la secretaire
@@ -170,7 +176,7 @@ class DatabaseSeeder extends Seeder
                 'login' => "secretaire",
                 'password' => Hash::make('123'), // Password: 123
             ]),
-            'role' => 3, // Secretaire
+            'role_id' => $secretaire->id, // Secretaire
         ]);
     }
 }

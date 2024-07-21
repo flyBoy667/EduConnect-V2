@@ -14,13 +14,21 @@ use Illuminate\Support\Str;
  */
 class PersonnelAdministratif extends User
 {
-    public function user(): BelongsTo{
+    public function user(): BelongsTo
+    {
         return $this->belongsTo(User::class);
     }
+
+    public function roles(): BelongsTo
+    {
+        return $this->belongsTo(Role::class);
+    }
+
     public function paiements(): HasMany
     {
         return $this->hasMany(Paiement::class);
     }
+
     public function annonces(): HasMany
     {
         return $this->hasMany(Annonce::class);
