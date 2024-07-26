@@ -4,6 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class ProfesseurFormRequest extends FormRequest
 {
@@ -22,13 +23,16 @@ class ProfesseurFormRequest extends FormRequest
      */
     public function rules(): array
     {
+        $userId = $this->route('professeur') ? $this->route('professeur')->user->id : null;
+
         return [
             'nom' => ['required', 'string', 'min:3'],
             'prenom' => ['required', 'string', 'min:3'],
-            'login' => ['required', 'string', 'min:3', 'unique:users,login'],
-            'email' => ['required', 'string', 'email', 'min:5', 'unique:users,email'],
-            'telephone' => ['required', 'string', 'max:8', 'min:8'],
-            'specialites' => ['required', 'string', 'min:2']
+            'login' => ['required', 'string', 'min:3', Rule::unique('users', 'login')->ignore($userId)],
+            'email' => ['required', 'string', 'email', 'min:5', Rule::unique('users', 'email')->ignore($userId)],
+            'telephone' => ['required', 'string', 'min:8', Rule::unique('users', 'telephone')->ignore($userId)],
+            'specialites' => ['required', 'string', 'min:2'],
+            'image' => ['nullable', 'image', 'max:2048'],
         ];
     }
 

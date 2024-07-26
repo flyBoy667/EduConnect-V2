@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 
@@ -115,6 +116,11 @@ class User extends Authenticatable
     public function isPersonnelAdministratif(): bool
     {
         return $this->personnelAdministratifs()->exists();
+    }
+
+    public function imageUrl(): string
+    {
+        return Storage::disk('public')->url($this->image);
     }
 
 }

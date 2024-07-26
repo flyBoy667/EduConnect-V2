@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProfesseurFormRequest;
 use App\Models\Professeur;
 use App\Models\User;
+use GuzzleHttp\Psr7\UploadedFile;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class ProfesseurController extends Controller
 {
@@ -73,17 +75,45 @@ class ProfesseurController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Professeur $professeur)
     {
-        //
+        return view('admin.professeur.edit', compact('professeur'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ProfesseurFormRequest $request, Professeur $professeur): RedirectResponse
     {
-        //
+        $validated = $request->validated();
+
+        /**@var UploadedFile $image */
+        $image = $request->validated('image');
+
+        if ($image !== null && !$image->getError()) {
+            $imageName = 'profil-' . $professeur->user->nom . '-' . $professeur->user->prenom . '.' . $image->extension();
+            $validated['image'] = $image->storeAs('user/prof', $imageName, 'public');
+        }
+
+        //on verifie si l'user a deja une image si oui on la supprime
+        if ($professeur->user->image) {
+            Storage::disk('public')->delete($professeur->user->image);
+        }
+
+        $professeur->user->update([
+            'nom' => $validated['nom'],
+            'prenom' => $validated['prenom'],
+            'login' => $validated['login'],
+            'email' => $validated['email'],
+            'telephone' => $validated['telephone'],
+            'image' => $validated['image'] ?? null, // Si aucune image n'est fournie, on conserve la précédente'
+        ]);
+
+        $professeur->update([
+            'specialites' => json_encode(explode(',', $validated['specialites'])),
+        ]);
+
+        return redirect()->route('admin.professeur.index')->with('success', 'Professeur modifié avec succès.');
     }
 
     /**
@@ -91,6 +121,15 @@ class ProfesseurController extends Controller
      */
     public function destroy(Professeur $professeur): RedirectResponse
     {
+        // Supprimer l'image de l'utilisateur si elle existe
+        if ($professeur->user->image) {
+            Storage::disk('public')->delete($professeur->user->image);
+        }
+
+        // Supprimer l'utilisateur associé au professeur et le professeur lui-même
+        // Cela supprime également les relations avec les autres tables (élèves, notes, etc.) liées au professeur
+        // Note: Si vous souhaitez supprimer seulement les relations avec les autres tables, vous pouvez utiliser la méthode `detach()` sur la relation 'user_id' du modèle Professeur
+        // Exemple: $professeur->user_id = null; $professeur->save();
         $professeur->user()->delete();
         $professeur->delete();
 
