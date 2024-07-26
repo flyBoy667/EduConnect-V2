@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Professeur;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProfesseurController extends Controller
 {
@@ -11,7 +13,10 @@ class ProfesseurController extends Controller
      */
     public function index()
     {
-        return view('professeur.index');
+        //recuperer et afficher tous les modules du professeur
+        $prof = Auth::user()->professeurs()->first();
+        $modules = $prof->modules()->get();
+        return view('professeur.index', compact('modules'));
     }
 
     /**

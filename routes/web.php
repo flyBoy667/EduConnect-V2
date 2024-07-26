@@ -27,9 +27,7 @@ Route::get('/', function () {
 
 Route::get('/login', [AuthController::class, 'login'])->name('auth.login');
 Route::post('/login', [AuthController::class, 'doLogin']);
-Route::delete('/logout', [AuthController::class, 'logout'])->name('auth.logout');
-
-//Route::get('/profile', [TestController::class, 'index'])->name('test.index')->middleware('auth');
+Route::delete('/logout', [AuthController::class, 'logout'])->name('auth.logout')->middleware('auth');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/etudiant', [EtudiantController::class, 'index'])->name('etudiant.index');
@@ -37,6 +35,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/administrateur', [AdminController::class, 'index'])->name('administrateur.index');
     Route::get('/secretaire', [SecretaireController::class, 'index'])->name('secretaire.index');
     Route::get('/comptable', [ComptableController::class, 'index'])->name('comptable.index');
-
-
 });
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('professeur', \App\Http\Controllers\Admin\ProfesseurController::class);
+})->middleware('auth');
