@@ -13,7 +13,6 @@ use App\Models\User;
 use Database\Factories\FiliereFactory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
 
 class DatabaseSeeder extends Seeder
 {
@@ -111,9 +110,7 @@ class DatabaseSeeder extends Seeder
                 'nom' => "Goita",
                 'prenom' => "Yaya",
                 'login' => "prof.pyton",
-                'password' => Hash::make('123'),// Password: 123
-                'image' => Storage::disk('public')->get('default/prof/profil_prof.png')
-
+                'password' => Hash::make('123'), // Password: 123
             ]),
             'specialites' => json_encode(["Java", "Python"]),
         ]);

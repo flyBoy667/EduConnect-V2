@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Str;
 
 /**
@@ -34,18 +35,8 @@ class PersonnelAdministratif extends User
         return $this->hasMany(Annonce::class);
     }
 
-    public function isAdmin(): bool
+    public function role(): HasOne
     {
-        return $this->roles->nom === 'Administrateur';
-    }
-
-    public function isComptable(): bool
-    {
-        return $this->roles->nom === 'Comptable';
-    }
-
-    public function isSecretaire(): bool
-    {
-        return $this->roles->nom === 'Secrétaire';
+        return $this->hasOne(Role::class);
     }
 }

@@ -20,9 +20,7 @@ class AuthController extends Controller
         //Un tableau contenant la valuer des champs valides donnes en parametre
         $credentials = $request->validated();
         if (Auth::attempt($credentials)) {
-            //On régénère la session parce que l'utilisateur est stocké dans la session:
             $request->session()->regenerate();
-            //Ceci fera une redirection vers la route demander a l'origine si elle n'existe pas on ira sur la route donnee en param
             $user = Auth::user();
             if ($user && $user->isEtudiant()) {
                 return redirect()->route('etudiant.index');
@@ -33,7 +31,7 @@ class AuthController extends Controller
             if ($user && $user->isPersonnelAdministratif()) {
                 $role = $user->personnelAdministratifs->role_id;
                 if ($role === 1) {
-                    return redirect()->route('administrateur.index');
+                    return redirect()->route('admin.professeur.index');
                 }
                 if ($role === 2) {
                     return redirect()->route('comptable.index');
@@ -42,7 +40,6 @@ class AuthController extends Controller
                     return redirect()->route('secretaire.index');
                 }
 
-//                return redirect()->route('administrateur.index');
             }
             return redirect()->intended();
         }

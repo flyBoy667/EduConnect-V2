@@ -28,7 +28,8 @@
                 <tr>
                     <td>
                         @if($professeur->user->image)
-                            <img src="{{$professeur->user->imageUrl()}}" alt="Image de {{ $professeur->user->nom }}" style="width: 100px; height: auto;">
+                            <img src="{{$professeur->user->imageUrl()}}" alt="Image de {{ $professeur->user->nom }}"
+                                 style="width: 100px; height: auto;">
                         @else
                             Pas d'image
                         @endif
@@ -44,12 +45,17 @@
                         @endforeach
                     </td>
                     <td>
-                        <a href="{{ route('admin.professeur.show', $professeur->id) }}" class="btn btn-info btn-sm">Voir</a>
+                        <a href="{{ route('admin.professeur.show', $professeur->id) }}"
+                           class="btn btn-info btn-sm">Voir</a>
                         <a href="{{ route('admin.professeur.edit', $professeur->id) }}" class="btn btn-warning btn-sm">Éditer</a>
-                        <form action="{{ route('admin.professeur.destroy', $professeur->id) }}" method="POST" style="display:inline;">
+                        <form action="{{ route('admin.professeur.destroy', $professeur->id) }}" method="POST"
+                              style="display:inline;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce professeur ?')">Supprimer</button>
+                            <button type="submit" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce professeur ?')">
+                                Supprimer
+                            </button>
                         </form>
                     </td>
                 </tr>
@@ -59,7 +65,8 @@
     </div>
 
     <!-- Boîte modale pour créer un professeur -->
-    <div class="modal fade" id="createProfModal" tabindex="-1" role="dialog" aria-labelledby="createProfModalLabel" aria-hidden="true">
+    <div class="modal fade" id="createProfModal" tabindex="-1" role="dialog" aria-labelledby="createProfModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -84,7 +91,8 @@
 
                         <div class="form-group">
                             <label for="nom">Nom</label>
-                            <input type="text" class="form-control @error('nom') is-invalid @enderror" id="nom" name="nom" value="{{ old('nom') }}" required>
+                            <input type="text" class="form-control @error('nom') is-invalid @enderror" id="nom"
+                                   name="nom" value="{{ old('nom') }}" required>
                             @error('nom')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -92,7 +100,8 @@
 
                         <div class="form-group">
                             <label for="prenom">Prénom</label>
-                            <input type="text" class="form-control @error('prenom') is-invalid @enderror" id="prenom" name="prenom" value="{{ old('prenom') }}" required>
+                            <input type="text" class="form-control @error('prenom') is-invalid @enderror" id="prenom"
+                                   name="prenom" value="{{ old('prenom') }}" required>
                             @error('prenom')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -100,7 +109,8 @@
 
                         <div class="form-group">
                             <label for="login">Login</label>
-                            <input type="text" class="form-control @error('login') is-invalid @enderror" id="login" name="login" value="{{ old('login') }}" required>
+                            <input type="text" class="form-control @error('login') is-invalid @enderror" id="login"
+                                   name="login" value="{{ old('login') }}" required>
                             @error('login')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -108,7 +118,8 @@
 
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" required>
+                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
+                                   name="email" value="{{ old('email') }}" required>
                             @error('email')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -116,7 +127,8 @@
 
                         <div class="form-group">
                             <label for="telephone">Téléphone</label>
-                            <input type="text" class="form-control @error('telephone') is-invalid @enderror" id="telephone" name="telephone" value="{{ old('telephone') }}" required>
+                            <input type="text" class="form-control @error('telephone') is-invalid @enderror"
+                                   id="telephone" name="telephone" value="{{ old('telephone') }}" required>
                             @error('telephone')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -124,16 +136,9 @@
 
                         <div class="form-group">
                             <label for="specialites">Spécialités (séparées par des virgules)</label>
-                            <input type="text" class="form-control @error('specialites') is-invalid @enderror" id="specialites" name="specialites" value="{{ old('specialites') }}" required>
+                            <input type="text" class="form-control @error('specialites') is-invalid @enderror"
+                                   id="specialites" name="specialites" value="{{ old('specialites') }}" required>
                             @error('specialites')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <label for="image">Image</label>
-                            <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image">
-                            @error('image')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>

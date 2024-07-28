@@ -39,12 +39,6 @@ class ProfesseurController extends Controller
     {
         $validated = $request->validated();
 
-        // Vérifiez si le formulaire est valide
-        if ($request->fails()) {
-            return back()
-                ->withErrors($request)
-                ->withInput();
-        }
 
         // Créez l'utilisateur
         $user = User::create([
@@ -53,6 +47,7 @@ class ProfesseurController extends Controller
             'login' => $validated['login'],
             'email' => $validated['email'],
             'telephone' => $validated['telephone'],
+//            'image' => Storage::disk('public')->get('default/prof/profil_prof.png')
         ]);
 
         // Créez le professeur

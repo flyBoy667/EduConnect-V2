@@ -27,22 +27,27 @@
                     <a @class(['nav-link','active' => str_contains($route, 'professeur.')]) aria-current="page"
                        href="{{route('admin.professeur.index')}}">Gerer les profs</a>
                 </li>
-{{--                <li class="nav-item">--}}
-{{--                    <a @class(['nav-link','active' => str_contains($route, 'option.')]) href="{{route('admin.option.index')}}">Gerer--}}
-{{--                        les options</a>--}}
-{{--                </li>--}}
+                {{--                <li class="nav-item">--}}
+                {{--                    <a @class(['nav-link','active' => str_contains($route, 'option.')]) href="{{route('admin.option.index')}}">Gerer--}}
+                {{--                        les options</a>--}}
+                {{--                </li>--}}
             </ul>
+        </div>
+        <div class="ms-auto">
+            @auth()
+                <form action="{{route('logout')}}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-sm btn-outline-danger">Déconnexion</button>
+                </form>
+            @endauth
         </div>
     </div>
 </nav>
-</nav>
 
 <div class="container mt-5">
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{session('success')}}
-        </div>
-    @endif
+
+    @include('shared.flash')
 
     {{--    @if($errors->any())--}}
     {{--        <div class="alert alert-danger">--}}

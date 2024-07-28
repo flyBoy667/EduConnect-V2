@@ -11,7 +11,7 @@
     <h1>Bienvenue sur la page du professeur</h1>
     @if (Auth::check())
         <p>Vous êtes connecté en tant que {{ Auth::user()->nom }}.</p>
-        <form action="{{ route('auth.logout') }}" method="POST" style="display: inline;">
+        <form action="{{ route('logout') }}" method="POST" style="display: inline;">
             @csrf
             @method('DELETE')
             <button type="submit">Déconnexion</button>
