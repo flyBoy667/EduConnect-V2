@@ -123,4 +123,23 @@ class User extends Authenticatable
         return Storage::disk('public')->url($this->image);
     }
 
+    public function getType(): string
+    {
+        if ($this->isEtudiant()) {
+            return 'etudiant';
+        } elseif ($this->isProfesseur()) {
+            return 'professeur';
+        } elseif ($this->isPersonnelAdministratif()) {
+            $role = $this->personnelAdministratifs->role_id;
+            if ($role === 1) {
+                return 'admin';
+            } elseif ($role === 2) {
+                return 'comptable';
+            } elseif ($role === 3) {
+                return 'secretaire';
+            }
+        }
+        return 'user';
+    }
+
 }

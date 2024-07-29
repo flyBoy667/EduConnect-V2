@@ -31,13 +31,13 @@ Route::delete('/logout', [AuthController::class, 'logout'])->name('logout')->mid
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/etudiant', [EtudiantController::class, 'index'])->name('etudiant.index');
-    Route::get('/professeur', [ProfesseurController::class, 'index'])->name('professeur.index');
+    Route::get('/professeur', [ProfesseurController::class, 'index'])->name('professeur.index')->middleware('check.user.type:professeur');
     Route::get('/administrateur', [AdminController::class, 'index'])->name('administrateur.index');
     Route::get('/secretaire', [SecretaireController::class, 'index'])->name('secretaire.index');
     Route::get('/comptable', [ComptableController::class, 'index'])->name('comptable.index');
 });
 
-Route::middleware(['auth', 'admin'])->group(function () {
+Route::middleware(['auth', 'check.user.type:admin'])->group(function () {
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('professeur', \App\Http\Controllers\Admin\ProfesseurController::class);
     });

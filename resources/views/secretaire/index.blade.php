@@ -11,7 +11,7 @@
     <h1>Bienvenue sur la page de la secretaire</h1>
     @if (\Illuminate\Support\Facades\Auth::check())
         <p>Vous êtes connecté en tant que {{ \Illuminate\Support\Facades\Auth::user()->nom }}.</p>
-        <form action="{{ route('auth.logout') }}" method="POST" style="display: inline;">
+        <form action="{{ route('logout') }}" method="POST" style="display: inline;">
             @csrf
             @method('DELETE')
             <button type="submit">Déconnexion</button>
