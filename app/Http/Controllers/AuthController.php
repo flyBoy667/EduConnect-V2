@@ -39,24 +39,9 @@ class AuthController extends Controller
     //Une fonction qui gere la redirection
     private function redirectUser($user): RedirectResponse
     {
-        if ($user && $user->isEtudiant()) {
-            return redirect()->route('etudiant.index');
-        }
-        if ($user && $user->isProfesseur()) {
-            return redirect()->route('professeur.index');
-        }
-        if ($user && $user->isPersonnelAdministratif()) {
-            $role = $user->personnelAdministratifs->role_id;
-            if ($role === 1) {
-                return redirect()->route('admin.professeur.index');
-            }
-            if ($role === 2) {
-                return redirect()->route('comptable.index');
-            }
-            if ($role === 3) {
-                return redirect()->route('secretaire.index');
-            }
-
+        $type = $user->getType();
+        if ($type) {
+            return redirect()->route("{$type}.index");
         }
         return redirect()->intended();
     }
