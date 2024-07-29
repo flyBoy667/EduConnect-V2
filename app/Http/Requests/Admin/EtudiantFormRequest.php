@@ -12,7 +12,7 @@ class EtudiantFormRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -32,7 +32,7 @@ class EtudiantFormRequest extends FormRequest
             'telephone' => ['required', 'string', 'min:8', Rule::unique('users', 'telephone')->ignore($userId)],
             'image' => ['nullable', 'image', 'max:2048'],
             'filiere_id' => ['required', 'exists:filieres,id'],
-            'etat_paiement' => ['required', 'string'],
+            'etat_paiement' => ['required', 'numeric'],
         ];
     }
 }

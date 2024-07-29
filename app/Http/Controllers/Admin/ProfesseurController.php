@@ -35,7 +35,7 @@ class ProfesseurController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ProfesseurFormRequest $request)
+    public function store(ProfesseurFormRequest $request): RedirectResponse
     {
         $validated = $request->validated();
 
@@ -101,7 +101,7 @@ class ProfesseurController extends Controller
             'login' => $validated['login'],
             'email' => $validated['email'],
             'telephone' => $validated['telephone'],
-            'image' => $validated['image'] ?? null, // Si aucune image n'est fournie, on conserve la précédente'
+            'image' => $validated['image'] ?? $professeur->user->image, // Si aucune image n'est fournie, on conserve la précédente'
         ]);
 
         $professeur->update([

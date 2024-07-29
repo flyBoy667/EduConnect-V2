@@ -5,7 +5,7 @@
     <div class="container mt-5">
         <h1 class="mb-4">Éditer le Professeur</h1>
 
-        <form action="{{ route('admin.professeur.update', $professeur->id) }}" method="POST"
+        <form action="{{ route('admin.professeur.update', $professeur) }}" method="POST"
               enctype="multipart/form-data">
             @csrf
             @method('PUT')
