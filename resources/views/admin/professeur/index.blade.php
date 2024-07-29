@@ -10,63 +10,41 @@
             Ajouter un Professeur
         </button>
 
-        <table class="table table-bordered table-striped table-hover">
-            <thead class="thead-dark">
-            <tr>
-                <th>Image</th> <!-- Nouvelle colonne pour l'image -->
-                <th>Nom</th>
-                <th>Prénom</th>
-                <th>Login</th>
-                <th>Email</th>
-                <th>Téléphone</th>
-                <th>Spécialités</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
+        <div class="row">
             @foreach($professeurs as $professeur)
-                <tr>
-                    <td>
+                <div class="col-md-4 mb-4">
+                    <div class="card">
                         @if($professeur->user->image)
-                            <img src="{{$professeur->user->imageUrl()}}" alt="Image de {{ $professeur->user->nom }}"
-                                 style="width: 100px; height: auto;">
+                            <img class="card-img-top" src="{{ $professeur->user->imageUrl() }}" alt="Image de {{ $professeur->user->nom }}">
                         @else
-                            Pas d'image
+                            <img class="card-img-top" src="placeholder-image-url" alt="Pas d'image">
                         @endif
-                    </td>
-                    <td>{{ $professeur->user->nom }}</td>
-                    <td>{{ $professeur->user->prenom }}</td>
-                    <td>{{ $professeur->user->login }}</td>
-                    <td>{{ $professeur->user->email }}</td>
-                    <td>{{ $professeur->user->telephone }}</td>
-                    <td>
-                        @foreach (json_decode($professeur->specialites) as $specialite)
-                            {{ $specialite }}<br>
-                        @endforeach
-                    </td>
-                    <td>
-                        <a href="{{ route('admin.professeur.show', $professeur->id) }}"
-                           class="btn btn-info btn-sm">Voir</a>
-                        <a href="{{ route('admin.professeur.edit', $professeur->id) }}" class="btn btn-warning btn-sm">Éditer</a>
-                        <form action="{{ route('admin.professeur.destroy', $professeur->id) }}" method="POST"
-                              style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm"
-                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce professeur ?')">
-                                Supprimer
-                            </button>
-                        </form>
-                    </td>
-                </tr>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $professeur->user->nom }} {{ $professeur->user->prenom }}</h5>
+                            <p class="card-text"><strong>Login:</strong> {{ $professeur->user->login }}</p>
+                            <p class="card-text"><strong>Email:</strong> {{ $professeur->user->email }}</p>
+                            <p class="card-text"><strong>Téléphone:</strong> {{ $professeur->user->telephone }}</p>
+                            <p class="card-text"><strong>Spécialités:</strong>
+                                @foreach (json_decode($professeur->specialites) as $specialite)
+                                    {{ $specialite }}<br>
+                                @endforeach
+                            </p>
+                            <a href="{{ route('admin.professeur.show', $professeur->id) }}" class="btn btn-info btn-sm">Voir</a>
+                            <a href="{{ route('admin.professeur.edit', $professeur->id) }}" class="btn btn-warning btn-sm">Éditer</a>
+                            <form action="{{ route('admin.professeur.destroy', $professeur->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce professeur ?')">Supprimer</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             @endforeach
-            </tbody>
-        </table>
+        </div>
     </div>
 
     <!-- Boîte modale pour créer un professeur -->
-    <div class="modal fade" id="createProfModal" tabindex="-1" role="dialog" aria-labelledby="createProfModalLabel"
-         aria-hidden="true">
+    <div class="modal fade" id="createProfModal" tabindex="-1" role="dialog" aria-labelledby="createProfModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -91,8 +69,7 @@
 
                         <div class="form-group">
                             <label for="nom">Nom</label>
-                            <input type="text" class="form-control @error('nom') is-invalid @enderror" id="nom"
-                                   name="nom" value="{{ old('nom') }}" required>
+                            <input type="text" class="form-control @error('nom') is-invalid @enderror" id="nom" name="nom" value="{{ old('nom') }}" required>
                             @error('nom')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -100,8 +77,7 @@
 
                         <div class="form-group">
                             <label for="prenom">Prénom</label>
-                            <input type="text" class="form-control @error('prenom') is-invalid @enderror" id="prenom"
-                                   name="prenom" value="{{ old('prenom') }}" required>
+                            <input type="text" class="form-control @error('prenom') is-invalid @enderror" id="prenom" name="prenom" value="{{ old('prenom') }}" required>
                             @error('prenom')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -109,8 +85,7 @@
 
                         <div class="form-group">
                             <label for="login">Login</label>
-                            <input type="text" class="form-control @error('login') is-invalid @enderror" id="login"
-                                   name="login" value="{{ old('login') }}" required>
+                            <input type="text" class="form-control @error('login') is-invalid @enderror" id="login" name="login" value="{{ old('login') }}" required>
                             @error('login')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -118,8 +93,7 @@
 
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
-                                   name="email" value="{{ old('email') }}" required>
+                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" required>
                             @error('email')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -127,8 +101,7 @@
 
                         <div class="form-group">
                             <label for="telephone">Téléphone</label>
-                            <input type="text" class="form-control @error('telephone') is-invalid @enderror"
-                                   id="telephone" name="telephone" value="{{ old('telephone') }}" required>
+                            <input type="text" class="form-control @error('telephone') is-invalid @enderror" id="telephone" name="telephone" value="{{ old('telephone') }}" required>
                             @error('telephone')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -136,8 +109,7 @@
 
                         <div class="form-group">
                             <label for="specialites">Spécialités (séparées par des virgules)</label>
-                            <input type="text" class="form-control @error('specialites') is-invalid @enderror"
-                                   id="specialites" name="specialites" value="{{ old('specialites') }}" required>
+                            <input type="text" class="form-control @error('specialites') is-invalid @enderror" id="specialites" name="specialites" value="{{ old('specialites') }}" required>
                             @error('specialites')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -151,5 +123,4 @@
             </div>
         </div>
     </div>
-
 @endsection

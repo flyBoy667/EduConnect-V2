@@ -30,7 +30,7 @@ class Etudiant extends User
         return $this->hasMany(Reclamation::class);
     }
 
-    public function filieres(): BelongsTo
+    public function filiere(): BelongsTo
     {
         return $this->belongsTo(Filiere::class);
     }

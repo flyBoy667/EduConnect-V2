@@ -13,7 +13,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Gérer les étudiants</h5>
                         <p class="card-text">Ajouter, modifier ou supprimer des étudiants.</p>
-                        <a href="{{ route('etudiant.index') }}" class="btn btn-primary">Voir la liste</a>
+                        <a href="{{ route('admin.etudiant.index') }}" class="btn btn-primary">Voir la liste</a>
                         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addEtudiantModal">
                             Ajouter
                         </button>

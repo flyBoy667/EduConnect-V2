@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ComptableController;
 use App\Http\Controllers\EtudiantController;
@@ -32,14 +32,14 @@ Route::delete('/logout', [AuthController::class, 'logout'])->name('logout')->mid
 Route::middleware(['auth'])->group(function () {
     Route::get('/etudiant', [EtudiantController::class, 'index'])->name('etudiant.index');
     Route::get('/professeur', [ProfesseurController::class, 'index'])->name('professeur.index')->middleware('check.user.type:professeur');
-//    Route::get('/administrateur', [AdminController::class, 'index'])->name('administrateur.index');
     Route::get('/secretaire', [SecretaireController::class, 'index'])->name('secretaire.index');
     Route::get('/comptable', [ComptableController::class, 'index'])->name('comptable.index');
 });
 
 Route::middleware(['auth', 'check.user.type:admin'])->group(function () {
     Route::prefix('admin')->name('admin.')->group(function () {
-        Route::get('/', [AdminController::class, 'index'])->name('index');
+        Route::get('/', [\App\Http\Controllers\Admin\AdminController::class, 'index'])->name('index');
         Route::resource('professeur', \App\Http\Controllers\Admin\ProfesseurController::class);
+        Route::resource('etudiant', \App\Http\Controllers\Admin\EtudiantController::class);
     });
 });
