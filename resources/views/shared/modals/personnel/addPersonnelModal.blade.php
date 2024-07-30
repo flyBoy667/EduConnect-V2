@@ -1,9 +1,8 @@
-<!-- Modal pour l'ajout d'un étudiant -->
-<div class="modal fade" id="addEtudiantModal" tabindex="-1" aria-labelledby="addEtudiantModalLabel" aria-hidden="true">
+<div class="modal fade" id="addPersonnelModal" tabindex="-1" aria-labelledby="addPersonnelModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addEtudiantModalLabel">Ajouter un Étudiant</h5>
+                <h5 class="modal-title" id="addPersonnelModalLabel">Ajouter un Étudiant</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -47,22 +46,15 @@
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="filiere_id" class="form-label">Filière</label>
-                                <select name="filiere_id" id="filiere_id" class="form-select">
-                                    @foreach($filieres as $id => $nom)
-                                        <option value="{{ $id }}" {{ old('filiere_id') == $id ? 'selected' : '' }}>
+                                <label for="role_id" class="form-label">Filière</label>
+                                <select name="role_id" id="role_id" class="form-select">
+                                    @foreach($roles as $id => $nom)
+                                        <option value="{{ $id }}" {{ old('role_id') == $id ? 'selected' : '' }}>
                                             {{ $nom }}
                                         </option>
                                     @endforeach
                                 </select>
-                                <div id="error-filiere_id" class="text-danger"></div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="etat_paiement" class="form-label">État de Paiement</label>
-                                <input type="text" class="form-control" id="etat_paiement" name="etat_paiement">
-                                <div id="error-etat_paiement" class="text-danger"></div>
+                                <div id="error-role_id" class="text-danger"></div>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -88,7 +80,7 @@
         let form = this;
         let formData = new FormData(form);
 
-        fetch("{{ route('admin.etudiant.store') }}", {
+        fetch("{{ route('admin.personnelAdministratif.store') }}", {
             method: 'POST',
             headers: {
                 'X-CSRF-TOKEN': '{{ csrf_token() }}',
@@ -116,7 +108,7 @@
                     }
                 } else {
                     form.reset();
-                    $('#addEtudiantModal').modal('hide');
+                    $('#addPersonnelModal').modal('hide');
                     errorMessages.classList.add('d-none');
                     location.reload(); // Optionnel: Rafraîchit la page après l'ajout
                 }

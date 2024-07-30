@@ -23,7 +23,7 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="nom" class="form-label">Nom</label>
-                                <input type="text" class="form-control @error('nom') is-invalid @enderror" id="nom" name="nom" value="{{ old('nom') }}" required>
+                                <input type="text" class="form-control @error('nom') is-invalid @enderror" id="nom" name="nom" value="{{ old('nom') }}"  >
                                 @error('nom')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
@@ -33,7 +33,7 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="prenom" class="form-label">Prénom</label>
-                                <input type="text" class="form-control @error('prenom') is-invalid @enderror" id="prenom" name="prenom" value="{{ old('prenom') }}" required>
+                                <input type="text" class="form-control @error('prenom') is-invalid @enderror" id="prenom" name="prenom" value="{{ old('prenom') }}"  >
                                 @error('prenom')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
@@ -43,7 +43,7 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="login" class="form-label">Login</label>
-                                <input type="text" class="form-control @error('login') is-invalid @enderror" id="login" name="login" value="{{ old('login') }}" required>
+                                <input type="text" class="form-control @error('login') is-invalid @enderror" id="login" name="login" value="{{ old('login') }}"  >
                                 @error('login')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
@@ -53,7 +53,7 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" required>
+                                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}"  >
                                 @error('email')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
@@ -63,7 +63,7 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="telephone" class="form-label">Téléphone</label>
-                                <input type="text" class="form-control @error('telephone') is-invalid @enderror" id="telephone" name="telephone" value="{{ old('telephone') }}" required>
+                                <input type="text" class="form-control @error('telephone') is-invalid @enderror" id="telephone" name="telephone" value="{{ old('telephone') }}"  >
                                 @error('telephone')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
@@ -73,7 +73,7 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="specialites" class="form-label">Spécialités (séparées par des virgules)</label>
-                                <input type="text" class="form-control @error('specialites') is-invalid @enderror" id="specialites" name="specialites" value="{{ old('specialites') }}" required>
+                                <input type="text" class="form-control @error('specialites') is-invalid @enderror" id="specialites" name="specialites" value="{{ old('specialites') }}"  >
                                 @error('specialites')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror

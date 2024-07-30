@@ -44,7 +44,8 @@
                         <h5 class="card-title">Gérer les administrateurs</h5>
                         <p class="card-text">Ajouter, modifier ou supprimer des administrateurs.</p>
                         <a href="{{ route('professeur.index') }}" class="btn btn-primary">Voir la liste</a>
-                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createPersonnelModal">Ajouter
+                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createPersonnelModal">
+                            Ajouter
                         </button>
                     </div>
                 </div>
@@ -55,6 +56,6 @@
     <!-- Modales pour ajouter des utilisateurs -->
     @include('shared.modals.etudiant.addEtudiantModal')
     @include('shared.modals.professeur.createProfModal')
-    @include('shared.modals.personnel.createPersonnelModal')
+    @include('shared.modals.personnel.addPersonnelModal')
 
 @endsection
