@@ -3,27 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Filiere;
-use App\Models\Role;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
-use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 
-class AdminController extends Controller
+class PersonnelController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(): Factory|Application|View|\Illuminate\Contracts\Foundation\Application
+    public function index()
     {
-        $filieres = Filiere::pluck('nom_filiere', 'id');
-        $roles = Role::pluck('nom', 'id');
-
-        return view('admin.index', [
-            'filieres' => $filieres,
-            'roles' => $roles
-        ]);
+        //
     }
 
     /**

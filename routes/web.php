@@ -41,5 +41,6 @@ Route::middleware(['auth', 'check.user.type:admin'])->group(function () {
         Route::get('/', [\App\Http\Controllers\Admin\AdminController::class, 'index'])->name('index');
         Route::resource('professeur', \App\Http\Controllers\Admin\ProfesseurController::class);
         Route::resource('etudiant', \App\Http\Controllers\Admin\EtudiantController::class);
+        Route::resource('personnel', \App\Http\Controllers\Admin\PersonnelController::class);
     });
 });

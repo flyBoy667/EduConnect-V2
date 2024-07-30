@@ -94,12 +94,6 @@ class EtudiantController extends Controller
     {
         $validated = $request->validated();
 
-//        $validator = Validator::make($request->validated(), $request->rules());
-//
-//        if ($validator->fails()) {
-//            return response()->json(['errors' => $validator->errors()], 422);
-//        }
-
         $image = $request->validated('image');
 
         // Si une image est fournie, traitement de l'image
@@ -120,7 +114,7 @@ class EtudiantController extends Controller
             'nom' => $validated['nom'],
             'email' => $validated['email'],
             'telephone' => $validated['telephone'],
-            'image' => $validated['image'] ?? $etudiant->user->image, // Utiliser l'ancienne image si aucune nouvelle image n'est fournie
+            'image' => $validated['image'] ?? $etudiant->user->image,
             'login' => $validated['login'] ?? $etudiant->user->login
         ]);
 
@@ -130,7 +124,6 @@ class EtudiantController extends Controller
             'etat_paiement' => $validated['etat_paiement'],
         ]);
 
-        // Redirection avec message de succès
         return redirect()->route('admin.etudiant.index')->with('success', 'Étudiant modifié avec succès.');
     }
 
