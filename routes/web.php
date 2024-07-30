@@ -30,11 +30,32 @@ Route::post('/login', [AuthController::class, 'doLogin']);
 Route::delete('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/etudiant', [EtudiantController::class, 'index'])->name('etudiant.index');
     Route::get('/professeur', [ProfesseurController::class, 'index'])->name('professeur.index')->middleware('check.user.type:professeur');
     Route::get('/secretaire', [SecretaireController::class, 'index'])->name('secretaire.index');
     Route::get('/comptable', [ComptableController::class, 'index'])->name('comptable.index');
 });
+
+Route::middleware(['auth', 'check.user.type:etudiant'])->group(function () {
+
+    Route::prefix('etudiant')->name('etudiant.')->controller(EtudiantController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/ressources', [EtudiantController::class, 'ressources'])->name('ressources');
+
+    });
+
+});
+
+Route::middleware(['auth', 'check.user.type:professeur'])->group(function () {
+
+    Route::prefix('professeur')->name('professeur.')->controller(ProfesseurController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::resource('ressources', \App\Http\Controllers\Professeur\RessourcesController::class);
+
+    });
+
+
+});
+
 
 Route::middleware(['auth', 'check.user.type:admin'])->group(function () {
     Route::prefix('admin')->name('admin.')->group(function () {

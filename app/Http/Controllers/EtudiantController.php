@@ -2,14 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ressource;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EtudiantController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         return view('etudiant.index');
     }
@@ -54,11 +59,24 @@ class EtudiantController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function ressources(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        //
+        //Recuperer l'etudiant
+        $etudiant = Auth::user()->etudiants()->first();
+
+        //Recuperer tous les modules des filiers de l'etudiant
+        $modules = $etudiant->filiere->modules;
+        //Recuperer toutes les ressources sur les modules des filiers de l'etudiant
+        $ressources = collect();
+        foreach ($modules as $module) {
+            $ressources = $ressources->merge($module->ressources);
+        }
+        dd($ressources);
+
+        return view('etudiant.ressources', [
+            'ressources' => $ressources,
+        ]);
     }
+
+
 }

@@ -21,6 +21,6 @@ class Filiere extends BaseModel
 
     public function modules(): BelongsToMany
     {
-        return $this->belongsToMany(Module::class, 'filiere_module')->withTimestamps();
+        return $this->belongsToMany(Module::class);
     }
 }
