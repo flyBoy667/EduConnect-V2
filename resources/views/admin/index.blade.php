@@ -14,9 +14,6 @@
                         <h5 class="card-title">Gérer les étudiants</h5>
                         <p class="card-text">Ajouter, modifier ou supprimer des étudiants.</p>
                         <a href="{{ route('admin.etudiant.index') }}" class="btn btn-primary">Voir la liste</a>
-                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addEtudiantModal">
-                            Ajouter
-                        </button>
                     </div>
                 </div>
             </div>
@@ -29,9 +26,6 @@
                         <h5 class="card-title">Gérer les professeurs</h5>
                         <p class="card-text">Ajouter, modifier ou supprimer des professeurs.</p>
                         <a href="{{ route('admin.professeur.index') }}" class="btn btn-primary">Voir la liste</a>
-                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createProfModal">
-                            Ajouter
-                        </button>
                     </div>
                 </div>
             </div>
@@ -43,10 +37,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Gérer les administrateurs</h5>
                         <p class="card-text">Ajouter, modifier ou supprimer des administrateurs.</p>
-                        <a href="{{ route('professeur.index') }}" class="btn btn-primary">Voir la liste</a>
-                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createPersonnelModal">
-                            Ajouter
-                        </button>
+                        <a href="{{ route('admin.personnel_administratifs.index') }}" class="btn btn-primary">Voir la liste</a>
                     </div>
                 </div>
             </div>

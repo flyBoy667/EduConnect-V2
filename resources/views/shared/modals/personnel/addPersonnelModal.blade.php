@@ -1,12 +1,14 @@
-<div class="modal fade" id="addPersonnelModal" tabindex="-1" aria-labelledby="addPersonnelModalLabel" aria-hidden="true">
+<!-- Modal pour l'ajout d'un personnel administratif -->
+<div class="modal fade" id="addPersonnelModal" tabindex="-1" aria-labelledby="addPersonnelModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addPersonnelModalLabel">Ajouter un Étudiant</h5>
+                <h5 class="modal-title" id="addPersonnelModalLabel">Ajouter un Personnel Administratif</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="addEtudiantForm" method="POST" enctype="multipart/form-data">
+                <form id="addPersonnelForm" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row g-3">
                         <div class="col-md-6">
@@ -19,34 +21,38 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="prenom" class="form-label">Prénom</label>
-                                <input type="text" class="form-control" id="prenom" name="prenom">
+                                <input type="text" class="form-control" id="prenom" name="prenom"
+                                       value="{{ old('prenom') }}">
                                 <div id="error-prenom" class="text-danger"></div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="login" class="form-label">Login</label>
-                                <input type="text" class="form-control" id="login" name="login">
+                                <input type="text" class="form-control" id="login" name="login"
+                                       value="{{ old('login') }}">
                                 <div id="error-login" class="text-danger"></div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" name="email">
+                                <input type="email" class="form-control" id="email" name="email"
+                                       value="{{ old('email') }}">
                                 <div id="error-email" class="text-danger"></div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="telephone" class="form-label">Téléphone</label>
-                                <input type="text" class="form-control" id="telephone" name="telephone">
+                                <input type="text" class="form-control" id="telephone" name="telephone"
+                                       value="{{ old('telephone') }}">
                                 <div id="error-telephone" class="text-danger"></div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="role_id" class="form-label">Filière</label>
+                                <label for="role_id" class="form-label">Rôle</label>
                                 <select name="role_id" id="role_id" class="form-select">
                                     @foreach($roles as $id => $nom)
                                         <option value="{{ $id }}" {{ old('role_id') == $id ? 'selected' : '' }}>
@@ -58,29 +64,24 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="image" class="form-label">Image</label>
-                                <input type="file" class="form-control" id="image" name="image">
-                                <div id="error-image" class="text-danger"></div>
-                            </div>
                         </div>
+                        <div id="errorMessages" class="alert alert-danger d-none"></div>
+                        <button type="submit" class="btn btn-primary">Ajouter</button>
                     </div>
-                    <div id="errorMessages" class="alert alert-danger d-none"></div>
-                    <button type="submit" class="btn btn-primary">Ajouter</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
 
-<!-- JavaScript pour la gestion AJAX -->
 <script>
-    document.getElementById('addEtudiantForm').addEventListener('submit', function (event) {
+    document.getElementById('addPersonnelForm').addEventListener('submit', function (event) {
         event.preventDefault();
         let form = this;
         let formData = new FormData(form);
+        console.log(formData)
 
-        fetch("{{ route('admin.personnelAdministratif.store') }}", {
+        fetch("{{ route('admin.personnel_administratifs.store') }}", {
             method: 'POST',
             headers: {
                 'X-CSRF-TOKEN': '{{ csrf_token() }}',

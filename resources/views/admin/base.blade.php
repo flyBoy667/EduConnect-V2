@@ -31,6 +31,10 @@
                     <a @class(['nav-link','active' => str_contains($route, 'etudiant.')]) aria-current="page"
                        href="{{route('admin.etudiant.index')}}">Gerer les etudiants</a>
                 </li>
+                <li class="nav-item">
+                    <a @class(['nav-link','active' => str_contains($route, 'personnel_administratifs.')]) aria-current="page"
+                       href="{{route('admin.personnel_administratifs.index')}}">Gerer les personnels</a>
+                </li>
                 {{--                <li class="nav-item">--}}
                 {{--                    <a @class(['nav-link','active' => str_contains($route, 'option.')]) href="{{route('admin.option.index')}}">Gerer--}}
                 {{--                        les options</a>--}}

@@ -22,16 +22,17 @@ class PersonnelFormRequest extends FormRequest
      */
     public function rules(): array
     {
-        $userId = $this->route('personnel') ? $this->route('personnel')->user->id : null;
+
+        $userId = $this->route('personnel_administratif') ? $this->route('personnel_administratif')->user->id : null;
 
         return [
-            'nom' => ['required', 'string', 'min:3'],
+            'nom' => ['required', 'string', 'min:3',],
             'prenom' => ['required', 'string', 'min:3'],
             'login' => ['required', 'string', 'min:3', Rule::unique('users', 'login')->ignore($userId)],
             'email' => ['required', 'string', 'email', 'min:5', Rule::unique('users', 'email')->ignore($userId)],
-            'telephone' => ['required', 'string', 'min:10', Rule::unique('users', 'telephone')->ignore($userId)],
-            'role_id' => ['required', 'integer', 'exists:role,id'],
-            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2048'], // Ajout de contraintes pour l'image
+            'telephone' => ['required', 'string', 'min:8', Rule::unique('users', 'telephone')->ignore($userId)],
+            'role_id' => ['required', 'integer', 'exists:roles,id'],
+            'image' => ['nullable', 'image', 'max:2048'],
         ];
     }
 }

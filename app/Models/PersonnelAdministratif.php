@@ -20,7 +20,7 @@ class PersonnelAdministratif extends User
         return $this->belongsTo(User::class);
     }
 
-    public function roles(): BelongsTo
+    public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);
     }
@@ -35,8 +35,8 @@ class PersonnelAdministratif extends User
         return $this->hasMany(Annonce::class);
     }
 
-    public function role(): HasOne
-    {
-        return $this->hasOne(Role::class);
-    }
+//    public function role(): HasOne
+//    {
+//        return $this->hasOne(Role::class);
+//    }
 }

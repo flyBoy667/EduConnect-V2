@@ -46,16 +46,17 @@ class EtudiantController extends Controller
     {
         $validated = $request->validated();
 
-        // Créez l'utilisateur
+        $defaultImagePath = 'default/etudiant/profil_etudiant.png';
+
         $user = User::create([
             'nom' => $validated['nom'],
             'prenom' => $validated['prenom'],
             'login' => $validated['login'],
             'email' => $validated['email'],
             'telephone' => $validated['telephone'],
+            'image' => $defaultImagePath,
         ]);
 
-        // Créez l'étudiant
         Etudiant::create([
             'user_id' => $user->id,
             'filiere_id' => $validated['filiere_id'],
@@ -85,17 +86,20 @@ class EtudiantController extends Controller
     {
         $validated = $request->validated();
 
-        // Si une image est fournie, traitement de l'image
+        $imagePath = $etudiant->user->image;
+
+
         if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $imageName = 'profil-' . $etudiant->user->nom . '-' . $etudiant->user->prenom . '.' . $image->extension();
-            $imagePath = $image->storeAs('user/etudiants', $imageName, 'public');
+            $image = $request->validated('image');
 
-            if ($etudiant->user->image && Storage::disk('public')->exists($etudiant->user->image)) {
-                Storage::disk('public')->delete($etudiant->user->image);
+            if ($image->isValid()) {
+                if ($imagePath) {
+                    Storage::disk('public')->delete($imagePath);
+                }
+
+                $imageName = 'profil-' . $etudiant->user->nom . '-' . $etudiant->user->prenom . '.' . $image->extension();
+                $imagePath = $image->storeAs('user/etudiant', $imageName, 'public');
             }
-
-            $validated['image'] = $imagePath;
         }
 
         // Mettre à jour les informations de l'étudiant
@@ -104,11 +108,10 @@ class EtudiantController extends Controller
             'prenom' => $validated['prenom'],
             'email' => $validated['email'],
             'telephone' => $validated['telephone'],
-            'image' => $validated['image'] ?? $etudiant->user->image,
+            'image' => $imagePath,
             'login' => $validated['login'] ?? $etudiant->user->login
         ]);
 
-        // Mettre à jour les informations spécifiques à l'étudiant
         $etudiant->update([
             'filiere_id' => $validated['filiere_id'],
             'etat_paiement' => $validated['etat_paiement'],

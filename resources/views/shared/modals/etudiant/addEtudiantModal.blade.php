@@ -65,13 +65,6 @@
                                 <div id="error-etat_paiement" class="text-danger"></div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="image" class="form-label">Image</label>
-                                <input type="file" class="form-control" id="image" name="image">
-                                <div id="error-image" class="text-danger"></div>
-                            </div>
-                        </div>
                     </div>
                     <div id="errorMessages" class="alert alert-danger d-none"></div>
                     <button type="submit" class="btn btn-primary">Ajouter</button>
