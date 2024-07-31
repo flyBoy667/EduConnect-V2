@@ -39,18 +39,17 @@ class ProfesseurController extends Controller
     {
         $validated = $request->validated();
 
+        $defaultImagePath = 'default/prof/profil_prof.png';
 
-        // Créez l'utilisateur
         $user = User::create([
             'nom' => $validated['nom'],
             'prenom' => $validated['prenom'],
             'login' => $validated['login'],
             'email' => $validated['email'],
             'telephone' => $validated['telephone'],
-//            'image' => Storage::disk('public')->get('default/prof/profil_prof.png')
+            'image' => $defaultImagePath,
         ]);
 
-        // Créez le professeur
         Professeur::create([
             'user_id' => $user->id,
             'specialites' => json_encode(explode(',', $validated['specialites'])),
@@ -82,26 +81,29 @@ class ProfesseurController extends Controller
     {
         $validated = $request->validated();
 
-        /**@var UploadedFile $image */
-        $image = $request->validated('image');
+        $imagePath = $professeur->user->image;
 
-        if ($image !== null && !$image->getError()) {
-            $imageName = 'profil-' . $professeur->user->nom . '-' . $professeur->user->prenom . '.' . $image->extension();
-            $validated['image'] = $image->storeAs('user/prof', $imageName, 'public');
+        if ($request->hasFile('image')) {
+            $image = $request->validated('image');
+
+            if ($image->isValid()) {
+                if ($imagePath) {
+                    Storage::disk('public')->delete($imagePath);
+                }
+
+                $imageName = 'profil-' . $professeur->user->nom . '-' . $professeur->user->prenom . '.' . $image->extension();
+                $imagePath = $image->storeAs('user/prof', $imageName, 'public');
+            }
         }
 
-        //on verifie si l'user a deja une image si oui on la supprime
-        if ($professeur->user->image) {
-            Storage::disk('public')->delete($professeur->user->image);
-        }
-
+        // Mettez à jour les informations du professeur
         $professeur->user->update([
             'nom' => $validated['nom'],
             'prenom' => $validated['prenom'],
             'login' => $validated['login'],
             'email' => $validated['email'],
             'telephone' => $validated['telephone'],
-            'image' => $validated['image'] ?? $professeur->user->image, // Si aucune image n'est fournie, on conserve la précédente'
+            'image' => $imagePath,
         ]);
 
         $professeur->update([
