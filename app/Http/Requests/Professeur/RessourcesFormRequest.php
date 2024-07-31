@@ -24,8 +24,7 @@ class RessourcesFormRequest extends FormRequest
         return [
             'nom' => 'required|string|min:3',
             'module_id' => 'required|exists:modules,id',
-            'professeur_id' => 'required|exists:professeurs,id',
-            'fichier' => 'file|mimes:pdf,doc,docx,xls,xlsx|max:2048',
+            'fichier' => 'required|file|mimes:pdf,doc,docx,xls,xlsx|max:2048',
         ];
     }
 }

@@ -50,10 +50,7 @@ Route::middleware(['auth', 'check.user.type:professeur'])->group(function () {
     Route::prefix('professeur')->name('professeur.')->controller(ProfesseurController::class)->group(function () {
         Route::get('/', 'index')->name('index');
         Route::resource('ressources', \App\Http\Controllers\Professeur\RessourcesController::class);
-
     });
-
-
 });
 
 

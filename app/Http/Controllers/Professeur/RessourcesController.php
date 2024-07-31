@@ -8,8 +8,11 @@ use App\Models\Ressource;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class RessourcesController extends Controller
 {
@@ -41,30 +44,29 @@ class RessourcesController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(RessourcesFormRequest $request)
+    public function store(RessourcesFormRequest $request): JsonResponse|RedirectResponse
     {
-        // Validation déjà effectuée par StoreRessourceRequest
 
         $validated = $request->validated();
 
-        // Stocker le fichier et obtenir le chemin
-        if ($request->hasFile('fichier')) {
+        if ($request->validated('fichier')) {
             $fichierPath = $request->file('fichier')->store('ressources', 'public');
         } else {
             $fichierPath = null;
         }
 
-
-        // Créer la ressource
         Ressource::create([
             'nom' => $validated['nom'],
             'module_id' => $validated['module_id'],
-            'professeur_id' => Auth::user()->professeurs->id,
+            'professeur_id' => Auth::user()->professeurs()->first()->id,
             'fichier' => $fichierPath,
         ]);
 
-        return response()->json(['message' => 'Ressource ajoutée avec succès.']);
+        if ($request->expectsJson()) {
+            return response()->json(['success' => 'Ressources ajouté avec succès.']);
+        }
 
+        return redirect()->route('professeur.ressources.index')->with('success', 'Ressources ajouté avec succès.');
     }
 
     /**
@@ -89,17 +91,45 @@ class RessourcesController extends Controller
      * Update the specified resource in storage.
      */
     public
-    function update(Request $request, string $id)
+    function update(RessourcesFormRequest $request, Ressource $ressource): JsonResponse|RedirectResponse
     {
-        //
+        $validated = $request->validated();
+
+        if ($request->hasFile('fichier')) {
+            if ($ressource->fichier !== null) {
+                Storage::disk('public')->delete($ressource->fichier);
+            }
+            $fichierPath = $request->validated('fichier')->store('ressources', 'public');
+            $ressource->fichier = $fichierPath;
+        } else {
+            $fichierPath = $ressource->fichier;
+        }
+
+        $ressource->update([
+            'nom' => $validated['nom'],
+            'module_id' => $validated['module_id'],
+            'professeur_id' => Auth::user()->professeurs()->first()->id,
+            'fichier' => $fichierPath,
+        ]);
+
+        if ($request->expectsJson()) {
+            return response()->json(['success' => 'Ressource modifiée avec succès.']);
+        }
+
+        return redirect()->route('professeur.ressources.index')->with('success', 'Ressource modifiée avec succès.');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
     public
-    function destroy(string $id)
+    function destroy(Ressource $ressource): RedirectResponse
     {
-        //
+        if ($ressource->fichier !== null) {
+            Storage::disk('public')->delete($ressource->fichier);
+        }
+        $ressource->delete();
+        return redirect()->route('professeur.ressources.index')->with('success', 'Ressource supprimé avec succès.');
     }
 }
