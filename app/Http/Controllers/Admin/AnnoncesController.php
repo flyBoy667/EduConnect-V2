@@ -9,6 +9,7 @@ use App\Models\Filiere;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -39,7 +40,7 @@ class AnnoncesController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(AnnoncesFormRequest $request)
+    public function store(AnnoncesFormRequest $request): JsonResponse|RedirectResponse
     {
         $validated = $request->validated();
         $user = Auth::user();
@@ -67,6 +68,10 @@ class AnnoncesController extends Controller
             ]);
         }
 
+        if ($request->expectsJson()) {
+            return response()->json(['success' => 'Étudiant modifié avec succès.']);
+        }
+
         return redirect()->route('admin.annonces.index')->with('success', 'Annonces créées avec succès');
     }
 
@@ -89,7 +94,7 @@ class AnnoncesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(AnnoncesFormRequest $request, Annonce $annonce)
+    public function update(AnnoncesFormRequest $request, Annonce $annonce): JsonResponse|RedirectResponse
     {
         $validated = $request->validated();
         $imagePath = $annonce->image;
@@ -119,6 +124,11 @@ class AnnoncesController extends Controller
                 'filiere_id' => $filiereId,
             ]);
         }
+
+        if ($request->expectsJson()) {
+            return response()->json(['success' => 'Étudiant modifié avec succès.']);
+        }
+
         return redirect()->route('admin.annonces.index')->with('success', 'Annonce modifiée avec succès');
     }
 

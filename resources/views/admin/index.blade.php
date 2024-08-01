@@ -110,7 +110,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Gérer les filières</h5>
                         <p class="card-text">Ajouter, modifier ou supprimer des filières.</p>
-                        <a href="#" class="btn btn-primary">Voir la liste</a>
+                        <a href="{{route('admin.filieres.index')}}" class="btn btn-primary">Voir la liste</a>
                     </div>
                 </div>
             </div>
@@ -128,10 +128,4 @@
             </div>
         </div>
     </div>
-
-    <!-- Modales pour ajouter des utilisateurs -->
-    @include('shared.modals.etudiant.addEtudiantModal')
-    @include('shared.modals.professeur.createProfModal')
-    @include('shared.modals.personnel.addPersonnelModal')
-
 @endsection
