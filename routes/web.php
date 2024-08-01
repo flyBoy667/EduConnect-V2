@@ -60,5 +60,6 @@ Route::middleware(['auth', 'check.user.type:admin'])->group(function () {
         Route::resource('professeur', \App\Http\Controllers\Admin\ProfesseurController::class);
         Route::resource('etudiant', \App\Http\Controllers\Admin\EtudiantController::class);
         Route::resource('personnel_administratifs', \App\Http\Controllers\Admin\PersonnelAdministratifController::class);
+        Route::resource('annonces', \App\Http\Controllers\Admin\AnnoncesController::class);
     });
 });

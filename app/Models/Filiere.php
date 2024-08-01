@@ -23,4 +23,9 @@ class Filiere extends BaseModel
     {
         return $this->belongsToMany(Module::class);
     }
+
+    public function annonces(): HasMany
+    {
+        return $this->hasMany(Annonce::class);
+    }
 }

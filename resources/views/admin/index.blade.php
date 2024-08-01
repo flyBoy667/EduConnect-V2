@@ -64,7 +64,7 @@
         </div>
 
         <!-- Cartes existantes -->
-        <div class="row">
+        <div class="row gap-5">
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-header">
@@ -97,7 +97,32 @@
                     <div class="card-body">
                         <h5 class="card-title">Gérer les administrateurs</h5>
                         <p class="card-text">Ajouter, modifier ou supprimer des administrateurs.</p>
-                        <a href="{{ route('admin.personnel_administratifs.index') }}" class="btn btn-primary">Voir la liste</a>
+                        <a href="{{ route('admin.personnel_administratifs.index') }}" class="btn btn-primary">Voir la
+                            liste</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        Filières
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Gérer les filières</h5>
+                        <p class="card-text">Ajouter, modifier ou supprimer des filières.</p>
+                        <a href="#" class="btn btn-primary">Voir la liste</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        Annonces
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Gérer les annonces</h5>
+                        <p class="card-text">Ajouter, modifier ou supprimer des annonces.</p>
+                        <a href="{{ route('admin.annonces.index') }}" class="btn btn-primary">Voir la liste</a>
                     </div>
                 </div>
             </div>

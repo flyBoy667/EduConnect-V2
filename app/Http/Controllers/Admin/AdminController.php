@@ -25,7 +25,7 @@ class AdminController extends Controller
         $roles = Role::pluck('nom', 'id');
         $nombreProfesseurs = Professeur::count();
         $nombreEtudiants = Etudiant::count();
-        $totalPaiements = Paiement::sum('montant');
+        $totalPaiements = Etudiant::sum('etat_paiement');
         $nombreFilieres = Filiere::count();
         $nombrePersonnel = PersonnelAdministratif::count();
 
