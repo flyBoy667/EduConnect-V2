@@ -50,6 +50,9 @@ Route::middleware(['auth', 'check.user.type:professeur'])->group(function () {
     Route::prefix('professeur')->name('professeur.')->controller(ProfesseurController::class)->group(function () {
         Route::get('/', 'index')->name('index');
         Route::resource('ressources', \App\Http\Controllers\Professeur\RessourcesController::class);
+//        Route::resource('notes', \App\Http\Controllers\Professeur\NotesController::class);
+        Route::resource('etudiant', \App\Http\Controllers\Professeur\EtudiantController::class);
+        Route::get('/modules', [\App\Http\Controllers\Professeur\EtudiantController::class, 'modulesIndex'])->name('modules');
     });
 });
 
