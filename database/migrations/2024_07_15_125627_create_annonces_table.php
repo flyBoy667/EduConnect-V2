@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,7 +18,7 @@ return new class extends Migration {
             $table->date('dateDebut');
             $table->date('dateFin');
             $table->string('image')->nullable();
-            $table->foreignIdFor(\App\Models\User::class);
+            $table->foreignIdFor(User::class);
             $table->timestamps();
         });
     }
@@ -29,7 +30,7 @@ return new class extends Migration {
     {
         Schema::dropIfExists('annonces');
         Schema::table('annonces', function (Blueprint $table) {
-            $table->dropForeignIdFor(\App\Models\User::class);
+            $table->dropForeignIdFor(User::class);
         });
     }
 };

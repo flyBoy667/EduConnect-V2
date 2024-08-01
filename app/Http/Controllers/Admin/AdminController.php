@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Etudiant;
 use App\Models\Filiere;
+use App\Models\Paiement;
+use App\Models\PersonnelAdministratif;
+use App\Models\Professeur;
 use App\Models\Role;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -19,10 +23,20 @@ class AdminController extends Controller
     {
         $filieres = Filiere::pluck('nom_filiere', 'id');
         $roles = Role::pluck('nom', 'id');
+        $nombreProfesseurs = Professeur::count();
+        $nombreEtudiants = Etudiant::count();
+        $totalPaiements = Paiement::sum('montant');
+        $nombreFilieres = Filiere::count();
+        $nombrePersonnel = PersonnelAdministratif::count();
 
         return view('admin.index', [
             'filieres' => $filieres,
-            'roles' => $roles
+            'roles' => $roles,
+            'nombreProfesseurs' => $nombreProfesseurs,
+            'nombreEtudiants' => $nombreEtudiants,
+            'totalPaiements' => $totalPaiements,
+            'nombreFilieres' => $nombreFilieres,
+            'nombrePersonnel' => $nombrePersonnel,
         ]);
     }
 

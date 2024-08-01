@@ -118,6 +118,11 @@ class User extends Authenticatable
         return $this->personnelAdministratifs()->exists();
     }
 
+    public function annonces(): HasMany
+    {
+        return $this->hasMany(Annonce::class);
+    }
+
     public function imageUrl(): string
     {
         return Storage::disk('public')->url($this->image);

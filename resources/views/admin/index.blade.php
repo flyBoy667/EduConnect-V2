@@ -4,6 +4,66 @@
 
 @section('content')
     <div class="container mt-5">
+        <!-- Tableau de bord -->
+        <div class="row mb-4">
+            <div class="col-md-2">
+                <div class="card text-center">
+                    <div class="card-header">
+                        Professeurs
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $nombreProfesseurs }}</h5>
+                        <p class="card-text">Nombre de professeurs</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card text-center">
+                    <div class="card-header">
+                        Étudiants
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $nombreEtudiants }}</h5>
+                        <p class="card-text">Nombre d'étudiants</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card text-center">
+                    <div class="card-header">
+                        Paiements
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ number_format($totalPaiements, 2, ',', ' ') }} €</h5>
+                        <p class="card-text">Total des paiements</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card text-center">
+                    <div class="card-header">
+                        Filières
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $nombreFilieres }}</h5>
+                        <p class="card-text">Nombre de filières</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card text-center">
+                    <div class="card-header">
+                        Personnel
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $nombrePersonnel }}</h5>
+                        <p class="card-text">Nombre de personnel administratif</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cartes existantes -->
         <div class="row">
             <div class="col-md-4">
                 <div class="card">
