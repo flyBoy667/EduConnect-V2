@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\ProfesseurFormRequest;
 use App\Models\Professeur;
 use App\Models\User;
 use GuzzleHttp\Psr7\UploadedFile;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -35,7 +36,7 @@ class ProfesseurController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ProfesseurFormRequest $request): RedirectResponse
+    public function store(ProfesseurFormRequest $request): JsonResponse|RedirectResponse
     {
         $validated = $request->validated();
 
@@ -54,6 +55,10 @@ class ProfesseurController extends Controller
             'user_id' => $user->id,
             'specialites' => json_encode(explode(',', $validated['specialites'])),
         ]);
+
+        if ($request->expectsJson()) {
+            return response()->json(['success' => 'Professeur ajouté avec succès.']);
+        }
 
         return redirect()->route('admin.professeur.index')->with('success', 'Professeur ajouté avec succès.');
     }
@@ -77,11 +82,12 @@ class ProfesseurController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(ProfesseurFormRequest $request, Professeur $professeur): RedirectResponse
+    public function update(ProfesseurFormRequest $request, Professeur $professeur): JsonResponse|RedirectResponse
     {
         $validated = $request->validated();
 
         $imagePath = $professeur->user->image;
+
 
         if ($request->hasFile('image')) {
             $image = $request->validated('image');
@@ -96,19 +102,22 @@ class ProfesseurController extends Controller
             }
         }
 
-        // Mettez à jour les informations du professeur
         $professeur->user->update([
             'nom' => $validated['nom'],
             'prenom' => $validated['prenom'],
-            'login' => $validated['login'],
             'email' => $validated['email'],
             'telephone' => $validated['telephone'],
             'image' => $imagePath,
+            'login' => $validated['login'] ?? $professeur->user->login
         ]);
 
         $professeur->update([
             'specialites' => json_encode(explode(',', $validated['specialites'])),
         ]);
+
+        if ($request->expectsJson()) {
+            return response()->json(['success' => 'Professeur modifié avec succès.']);
+        }
 
         return redirect()->route('admin.professeur.index')->with('success', 'Professeur modifié avec succès.');
     }

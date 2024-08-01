@@ -32,7 +32,9 @@
                             </p>
                             <a href="{{ route('admin.professeur.show', $professeur) }}"
                                class="btn btn-info btn-sm">Voir</a>
-                            <a href="{{ route('admin.professeur.edit', $professeur) }}" class="btn btn-warning btn-sm">Éditer</a>
+                            <button class="btn btn-success" data-bs-toggle="modal"
+                                    data-bs-target="#editProfModal-{{ $professeur->id }}">Modifier
+                            </button>
                             <form action="{{ route('admin.professeur.destroy', $professeur->id) }}" method="POST"
                                   style="display:inline;">
                                 @csrf
@@ -45,6 +47,7 @@
                         </div>
                     </div>
                 </div>
+                @include('shared.modals.professeur.editProfModal')
             @endforeach
         </div>
     </div>
