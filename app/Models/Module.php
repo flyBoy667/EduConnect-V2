@@ -15,10 +15,9 @@ use Illuminate\Support\Str;
  */
 class Module extends BaseModel
 {
-    public function professeurs()
+    public function professeur(): BelongsTo
     {
-        return $this->belongsToMany(Professeur::class)
-            ->withTimestamps();
+        return $this->belongsTo(Professeur::class);
     }
 
     public function filiere(): BelongsTo
