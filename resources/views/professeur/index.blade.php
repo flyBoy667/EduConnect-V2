@@ -73,7 +73,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Gérer les étudiants</h5>
                         <p class="card-text">Ajouter, modifier ou supprimer les notes des étudiants.</p>
-                        <a href="{{ route('professeur.modules') }}" class="btn btn-primary">Voir la liste</a>
+                        <a href="{{ route('professeur.modules.index') }}" class="btn btn-primary">Voir la liste</a>
                     </div>
                 </div>
             </div>

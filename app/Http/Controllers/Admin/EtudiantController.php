@@ -57,11 +57,17 @@ class EtudiantController extends Controller
             'image' => $defaultImagePath,
         ]);
 
-        Etudiant::create([
+        $etudiant = Etudiant::create([
             'user_id' => $user->id,
             'filiere_id' => $validated['filiere_id'],
             'etat_paiement' => $validated['etat_paiement'],
         ]);
+
+        //lien l'etudiant avec les modules de sa filieres avec une note par default de 0 par tout
+        $filiere = Filiere::find($validated['filiere_id']);
+        foreach ($filiere->modules as $module) {
+            $etudiant->modules()->attach($module->id, ['note_examen' => 0, 'note_classe' => 0]);
+        }
 
         if ($request->expectsJson()) {
             return response()->json(['success' => 'Étudiant ajouté avec succès.']);

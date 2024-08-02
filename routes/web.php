@@ -51,8 +51,13 @@ Route::middleware(['auth', 'check.user.type:professeur'])->group(function () {
         Route::get('/', 'index')->name('index');
         Route::resource('ressources', \App\Http\Controllers\Professeur\RessourcesController::class);
 //        Route::resource('notes', \App\Http\Controllers\Professeur\NotesController::class);
-        Route::resource('etudiant', \App\Http\Controllers\Professeur\EtudiantController::class);
-        Route::get('/modules', [\App\Http\Controllers\Professeur\EtudiantController::class, 'modulesIndex'])->name('modules');
+        Route::get('etudiant/{module}', [\App\Http\Controllers\Professeur\EtudiantController::class, 'index'])->name('etudiant.index');
+
+        Route::put('etudiant/{module}/edit-notes/{etudiant}', [\App\Http\Controllers\Professeur\EtudiantController::class, 'update'])->name('etudiant.notes.edit');
+
+        Route::resource('etudiant', \App\Http\Controllers\Professeur\EtudiantController::class)->except(['index', 'update']);
+        Route::resource('modules', \App\Http\Controllers\Professeur\ModuleController::class);
+
     });
 });
 

@@ -14,7 +14,7 @@ class FiliereController extends Controller
      */
     public function index()
     {
-        $filieres = Filiere::paginate(6);
+        $filieres = Filiere::with('modules')->paginate(6);
         return view('admin.filieres.index', [
             'filieres' => $filieres
         ]);

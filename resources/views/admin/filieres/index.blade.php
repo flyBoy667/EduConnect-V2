@@ -20,7 +20,10 @@
                             <p class="card-text">
                                 <strong>Description:</strong> {{ $filiere->description }}<br>
                                 <strong>Montant de la
-                                    Formation:</strong> {{ number_format($filiere->montant_formation, 2, ',', ' ') }} €
+                                    Formation:</strong> {{ number_format($filiere->montant_formation, 2, ',', ' ') }} € <br>
+                                <strong>Modules:</strong> @foreach($filiere->modules as $module)
+                                                              {{ $module->nom_module}}
+                                @endforeach
                             </p>
                             <button class="btn btn-success" data-bs-toggle="modal"
                                     data-bs-target="#editFiliereModal-{{ $filiere->id }}">Modifier
