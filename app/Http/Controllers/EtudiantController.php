@@ -61,17 +61,13 @@ class EtudiantController extends Controller
 
     public function ressources(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        //Recuperer l'etudiant
         $etudiant = Auth::user()->etudiants()->first();
 
-        //Recuperer tous les modules des filiers de l'etudiant
         $modules = $etudiant->filiere->modules;
-        //Recuperer toutes les ressources sur les modules des filiers de l'etudiant
         $ressources = collect();
         foreach ($modules as $module) {
             $ressources = $ressources->merge($module->ressources);
         }
-        dd($ressources);
 
         return view('etudiant.ressources', [
             'ressources' => $ressources,

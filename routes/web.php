@@ -38,8 +38,11 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth', 'check.user.type:etudiant'])->group(function () {
 
     Route::prefix('etudiant')->name('etudiant.')->controller(EtudiantController::class)->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::get('/ressources', [EtudiantController::class, 'ressources'])->name('ressources');
+        Route::get('/', [App\Http\Controllers\EtudiantController::class, 'index'])->name('index');
+        Route::get('ressources', 'ressources')->name('ressources.index');
+        Route::resource('notes', App\Http\Controllers\EtudiantNoteController::class);
+        Route::resource('annonces', App\Http\Controllers\EtudiantAnnonceController::class);
+        Route::resource('emploi_du_temps', App\Http\Controllers\EtudiantEmploiDuTempsController::class);
 
     });
 
