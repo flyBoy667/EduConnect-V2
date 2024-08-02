@@ -24,10 +24,9 @@ class Professeur extends User
         return $this->belongsTo(User::class);
     }
 
-    public function modules(): BelongsToMany
+    public function modules(): HasMany
     {
-        return $this->belongsToMany(Module::class)
-            ->withTimestamps();
+        return $this->hasMany(Module::class);
     }
 
     public function reclamations(): HasMany

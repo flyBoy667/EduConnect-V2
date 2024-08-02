@@ -19,9 +19,9 @@ class Filiere extends BaseModel
         return $this->hasMany(Etudiant::class);
     }
 
-    public function modules(): BelongsToMany
+    public function modules(): HasMany
     {
-        return $this->belongsToMany(Module::class);
+        return $this->hasMany(Module::class);
     }
 
     public function annonces(): HasMany
