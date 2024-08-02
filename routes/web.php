@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ComptableController;
 use App\Http\Controllers\EtudiantController;
 use App\Http\Controllers\ProfesseurController;
+use App\Http\Controllers\ReclamationController;
 use App\Http\Controllers\SecretaireController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
@@ -40,12 +41,16 @@ Route::middleware(['auth', 'check.user.type:etudiant'])->group(function () {
     Route::prefix('etudiant')->name('etudiant.')->controller(EtudiantController::class)->group(function () {
         Route::get('/', [App\Http\Controllers\EtudiantController::class, 'index'])->name('index');
         Route::get('ressources', 'ressources')->name('ressources.index');
-        Route::resource('notes', App\Http\Controllers\EtudiantNoteController::class);
+        Route::get('notes', 'notes')->name('notes.index');
         Route::resource('annonces', App\Http\Controllers\EtudiantAnnonceController::class);
         Route::resource('emploi_du_temps', App\Http\Controllers\EtudiantEmploiDuTempsController::class);
 
     });
 
+});
+
+Route::middleware('auth')->group(function () {
+    Route::post('reclamation', [ReclamationController::class, 'store'])->name('reclamation.store');
 });
 
 Route::middleware(['auth', 'check.user.type:professeur'])->group(function () {

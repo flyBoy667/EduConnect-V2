@@ -13,7 +13,7 @@
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{{route('admin.index')}}">Etudiant</a>
+        <a class="navbar-brand" href="{{route('etudiant.index')}}">Etudiant</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
                 aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -24,8 +24,8 @@
         <div class="collapse navbar-collapse" id="navbarScroll">
             <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
                 <li class="nav-item">
-                    <a @class(['nav-link','active' => str_contains($route, 'professeur.')]) aria-current="page"
-                       href="{{route('admin.professeur.index')}}">Notes</a>
+                    <a @class(['nav-link','active' => str_contains($route, 'etudiant.')]) aria-current="page"
+                       href="{{route('etudiant.index')}}">Notes</a>
                 </li>
                 <li class="nav-item">
                     <a @class(['nav-link','active' => str_contains($route, 'etudiant.')]) aria-current="page"

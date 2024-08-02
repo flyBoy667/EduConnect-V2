@@ -74,5 +74,18 @@ class EtudiantController extends Controller
         ]);
     }
 
+    public function notes()
+    {
+        $etudiant = Auth::user()->etudiants()->first();
+        $modules = $etudiant->modules;
+        $moyenneGenerale = $etudiant->getAverage();
+
+        return view('etudiant.notes', [
+            'etudiant' => $etudiant,
+            'modules' => $modules,
+            'moyenneGenerale' => number_format($moyenneGenerale, 2),
+        ]);
+    }
+
 
 }

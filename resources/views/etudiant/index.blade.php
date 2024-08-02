@@ -26,7 +26,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Notes</h5>
                         <p class="card-text">Consultez vos notes et résultats académiques.</p>
-                        <a href="" class="btn btn-primary">Voir les notes</a>
+                        <a href="{{ route('etudiant.notes.index') }}" class="btn btn-primary">Voir les notes</a>
                     </div>
                 </div>
             </div>
