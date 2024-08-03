@@ -42,4 +42,10 @@ class Module extends BaseModel
             ->withTimestamps();
     }
 
+    public function emploisDuTemps(): HasMany
+    {
+        return $this->hasMany(EmploiDuTemps::class);
+    }
+
+
 }

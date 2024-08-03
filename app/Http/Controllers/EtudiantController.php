@@ -108,5 +108,14 @@ class EtudiantController extends Controller
         ]);
     }
 
+    public function emploiDuTemps()
+    {
+        $etudiant = Auth::user()->etudiants()->first();
+        $filiere = $etudiant->filiere;
+        $emploisDuTemps = $filiere->emploisDuTemps()->with('module')->get();
+        return view('etudiant.emploi_du_temps', compact('emploisDuTemps'));
+    }
+
+
 
 }

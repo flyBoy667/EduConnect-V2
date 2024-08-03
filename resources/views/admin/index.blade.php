@@ -138,6 +138,18 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        Annonces
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Gérer les emplois du temps</h5>
+                        <p class="card-text">Ajouter, modifier ou supprimer des modules.</p>
+                        <a href="{{ route('admin.emplois-du-temps.index') }}" class="btn btn-primary">Voir la liste</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 @endsection

@@ -66,4 +66,12 @@ class ProfesseurController extends Controller
     {
         //
     }
+
+    public function emploiDuTemps()
+    {
+        $professeur = Auth::user()->professeurs()->first();
+        $emploisDuTemps = $professeur->emploisDuTemps()->with('module')->get();
+        return view('professeur.emploi_du_temps', compact('emploisDuTemps'));
+    }
+
 }

@@ -48,7 +48,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Emploi du temps</h5>
                         <p class="card-text">Consultez votre emploi du temps pour le semestre.</p>
-                        <a href="" class="btn btn-primary">Voir l'emploi du
+                        <a href="{{route('etudiant.emploi_du_temps')}}" class="btn btn-primary">Voir l'emploi du
                             temps</a>
                     </div>
                 </div>

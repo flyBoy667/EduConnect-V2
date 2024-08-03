@@ -43,4 +43,10 @@ class Professeur extends User
     {
         return $this->hasMany(Ressource::class);
     }
+
+    public function emploisDuTemps(): HasMany
+    {
+        return $this->hasMany(EmploiDuTemps::class);
+    }
+
 }

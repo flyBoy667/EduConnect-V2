@@ -113,6 +113,18 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        Emplois du temps
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Gérer les annonces</h5>
+                        <p class="card-text">Ajouter, modifier ou supprimer des annonces.</p>
+                        <a href="{{ route('professeur.emploi_du_temps') }}" class="btn btn-primary">Voir la liste</a>
+                    </div>
+                </div>
+            </div>
         </div>
 
 @endsection

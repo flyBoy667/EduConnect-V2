@@ -28,4 +28,10 @@ class Filiere extends BaseModel
     {
         return $this->hasMany(Annonce::class);
     }
+
+    public function emploisDuTemps(): HasMany
+    {
+        return $this->hasMany(EmploiDuTemps::class);
+    }
+
 }

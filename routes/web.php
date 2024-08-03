@@ -44,6 +44,8 @@ Route::middleware(['auth', 'check.user.type:etudiant'])->group(function () {
         Route::get('notes', 'notes')->name('notes.index');
         Route::get('reclamations', 'reclamations')->name('reclamations.index');
         Route::get('annonces', 'annonces')->name('annonces.index');
+        Route::get('emploi-du-temps', [\App\Http\Controllers\EtudiantController::class, 'emploiDuTemps'])->name('emploi_du_temps');
+
 //        Route::resource('emploi_du_temps', App\Http\Controllers\EtudiantEmploiDuTempsController::class);
     });
 
@@ -70,6 +72,8 @@ Route::middleware(['auth', 'check.user.type:professeur'])->group(function () {
 
         Route::resource('annonces', App\Http\Controllers\Professeur\AnnoncesController::class)->only('index');
 
+        Route::get('emploi-du-temps', [\App\Http\Controllers\ProfesseurController::class, 'emploiDuTemps'])->name('emploi_du_temps');
+
 
     });
 });
@@ -84,5 +88,6 @@ Route::middleware(['auth', 'check.user.type:admin'])->group(function () {
         Route::resource('annonces', \App\Http\Controllers\Admin\AnnoncesController::class)->except('store');
         Route::resource('filieres', \App\Http\Controllers\Admin\FiliereController::class);
         Route::resource('modules', \App\Http\Controllers\Admin\ModuleController::class);
+        Route::resource('emplois-du-temps', \App\Http\Controllers\Admin\EmploiDuTempsController::class);
     });
 });
