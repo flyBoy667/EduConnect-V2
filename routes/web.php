@@ -68,8 +68,8 @@ Route::middleware(['auth', 'check.user.type:professeur'])->group(function () {
         Route::get('etudiant/{module}', [\App\Http\Controllers\Professeur\EtudiantController::class, 'index'])->name('etudiant.index');
         Route::put('etudiant/{module}/edit-notes/{etudiant}', [\App\Http\Controllers\Professeur\EtudiantController::class, 'update'])->name('etudiant.notes.edit');
 
-        Route::get('qcm/create', [QcmController::class, 'create'])->name('qcm.create');
-        Route::post('qcm', [QcmController::class, 'store'])->name('qcm.store');
+        Route::resource('qcm', QcmController::class);
+
 
         Route::resource('etudiant', \App\Http\Controllers\Professeur\EtudiantController::class)->except(['index', 'update']);
         Route::resource('modules', \App\Http\Controllers\Professeur\ModuleController::class);

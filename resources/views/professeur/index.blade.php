@@ -133,7 +133,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Génerer une evaluation</h5>
                         <p class="card-text">Ajouter, modifier ou supprimer des annonces.</p>
-                        <a href="{{ route('professeur.qcm.create') }}" class="btn btn-primary">Aller sur la page</a>
+                        <a href="{{ route('professeur.qcm.index') }}" class="btn btn-primary">Aller sur la page</a>
                     </div>
                 </div>
             </div>

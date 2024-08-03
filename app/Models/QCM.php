@@ -13,4 +13,9 @@ class QCM extends BaseModel
     {
         return $this->hasMany(Question::class, 'qcm_id');
     }
+
+    public function module()
+    {
+        return $this->belongsTo(Module::class);
+    }
 }

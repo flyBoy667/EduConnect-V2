@@ -45,7 +45,7 @@
                 </li>
                 <li class="nav-item">
                     <a @class(['nav-link','active' => str_contains($route, 'qcm')]) aria-current="page"
-                       href="{{route('professeur.qcm.create')}}">Genere evaluation</a>
+                       href="{{route('professeur.qcm.index')}}">Genere evaluation</a>
                 </li>
                 {{--                <li class="nav-item">--}}
                 {{--                    <a @class(['nav-link','active' => str_contains($route, 'option.')]) href="{{route('admin.option.index')}}">Gerer--}}
