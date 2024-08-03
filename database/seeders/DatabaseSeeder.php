@@ -143,8 +143,8 @@ class DatabaseSeeder extends Seeder
 //
 //        //Creer les differents roles
         $admin = Role::factory()->create(['nom' => "Administrateur"]);
-//        $comptable = Role::factory()->create(['nom' => "Comptable"]);
-//        $secretaire = Role::factory()->create(['nom' => "Secrétaire"]);
+        $comptable = Role::factory()->create(['nom' => "Comptable"]);
+        $secretaire = Role::factory()->create(['nom' => "Secrétaire"]);
 
         // Creer l'administrateur
         PersonnelAdministratif::factory()->create([
@@ -158,25 +158,25 @@ class DatabaseSeeder extends Seeder
         ]);
 
 //         Creer le comptable
-//        PersonnelAdministratif::factory()->create([
-//            'user_id' => User::factory()->create([
-//                'nom' => "comptable",
-//                'prenom' => "comptable",
-//                'login' => "comptable",
-//                'password' => Hash::make('123'), // Password: 123
-//            ]),
-//            'role_id' => $comptable->id, // comptable
-//        ]);
-////
-////        // Creer la secretaire
-//        PersonnelAdministratif::factory()->create([
-//            'user_id' => User::factory()->create([
-//                'nom' => "secretaire",
-//                'prenom' => "secretaire",
-//                'login' => "secretaire",
-//                'password' => Hash::make('123'), // Password: 123
-//            ]),
-//            'role_id' => $secretaire->id, // Secretaire
-//        ]);
+        PersonnelAdministratif::factory()->create([
+            'user_id' => User::factory()->create([
+                'nom' => "comptable",
+                'prenom' => "comptable",
+                'login' => "comptable",
+                'password' => Hash::make('123'), // Password: 123
+            ]),
+            'role_id' => $comptable->id, // comptable
+        ]);
+//
+//        // Creer la secretaire
+        PersonnelAdministratif::factory()->create([
+            'user_id' => User::factory()->create([
+                'nom' => "secretaire",
+                'prenom' => "secretaire",
+                'login' => "secretaire",
+                'password' => Hash::make('123'), // Password: 123
+            ]),
+            'role_id' => $secretaire->id, // Secretaire
+        ]);
     }
 }

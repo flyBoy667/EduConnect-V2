@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ComptableController;
 use App\Http\Controllers\EtudiantController;
 use App\Http\Controllers\ProfesseurController;
+use App\Http\Controllers\QcmController;
 use App\Http\Controllers\ReclamationController;
 use App\Http\Controllers\SecretaireController;
 use App\Http\Controllers\TestController;
@@ -66,6 +67,9 @@ Route::middleware(['auth', 'check.user.type:professeur'])->group(function () {
         Route::resource('ressources', \App\Http\Controllers\Professeur\RessourcesController::class);
         Route::get('etudiant/{module}', [\App\Http\Controllers\Professeur\EtudiantController::class, 'index'])->name('etudiant.index');
         Route::put('etudiant/{module}/edit-notes/{etudiant}', [\App\Http\Controllers\Professeur\EtudiantController::class, 'update'])->name('etudiant.notes.edit');
+
+        Route::get('qcm/create', [QcmController::class, 'create'])->name('qcm.create');
+        Route::post('qcm', [QcmController::class, 'store'])->name('qcm.store');
 
         Route::resource('etudiant', \App\Http\Controllers\Professeur\EtudiantController::class)->except(['index', 'update']);
         Route::resource('modules', \App\Http\Controllers\Professeur\ModuleController::class);

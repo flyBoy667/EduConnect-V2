@@ -53,7 +53,7 @@ class AnnoncesController extends Controller
                 $imagePath = $image->storeAs('annonce', $imageName, 'public');
             }
         } else {
-            $imagePath = 'default/annonces/info.png';
+            $imagePath = 'default/annonces/info_logo';
         }
 
         foreach ($validated['filieres'] as $filiereId) {
