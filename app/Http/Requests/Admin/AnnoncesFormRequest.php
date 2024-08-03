@@ -27,7 +27,7 @@ class AnnoncesFormRequest extends FormRequest
             'contenu' => ['required', 'string', 'min:10'],
             'image' => ['nullable', 'image', 'max:2048'],
             'dateDebut' => ['required', 'date'],
-            'dateFin' => ['required', 'date', 'after:date_debut'],
+            'dateFin' => ['required', 'date', 'after:dateDebut'],
             'filieres' => 'required|array',
             'filieres.*' => 'exists:filieres,id',
         ];

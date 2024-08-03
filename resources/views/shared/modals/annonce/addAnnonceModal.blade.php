@@ -77,7 +77,7 @@
         let form = this;
         let formData = new FormData(form);
 
-        fetch("{{ route('admin.annonces.store') }}", {
+        fetch("{{ route('annonce.store') }}", {
             method: 'POST',
             headers: {
                 'X-CSRF-TOKEN': '{{ csrf_token() }}',

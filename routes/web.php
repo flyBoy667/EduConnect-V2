@@ -52,6 +52,7 @@ Route::middleware(['auth', 'check.user.type:etudiant'])->group(function () {
 Route::middleware('auth')->group(function () {
     Route::post('reclamation', [ReclamationController::class, 'store'])->name('reclamation.store');
     Route::delete('reclamation', [ReclamationController::class, 'destroy'])->name('reclamation.destroy');
+    Route::post('annonce-store', [\App\Http\Controllers\Admin\AnnoncesController::class, 'store'])->name('annonce.store');
 });
 
 Route::middleware(['auth', 'check.user.type:professeur'])->group(function () {
@@ -59,15 +60,16 @@ Route::middleware(['auth', 'check.user.type:professeur'])->group(function () {
     Route::prefix('professeur')->name('professeur.')->controller(ProfesseurController::class)->group(function () {
         Route::get('/', 'index')->name('index');
         Route::resource('ressources', \App\Http\Controllers\Professeur\RessourcesController::class);
-//        Route::resource('notes', \App\Http\Controllers\Professeur\NotesController::class);
         Route::get('etudiant/{module}', [\App\Http\Controllers\Professeur\EtudiantController::class, 'index'])->name('etudiant.index');
-
         Route::put('etudiant/{module}/edit-notes/{etudiant}', [\App\Http\Controllers\Professeur\EtudiantController::class, 'update'])->name('etudiant.notes.edit');
 
         Route::resource('etudiant', \App\Http\Controllers\Professeur\EtudiantController::class)->except(['index', 'update']);
         Route::resource('modules', \App\Http\Controllers\Professeur\ModuleController::class);
         Route::get('reclamation', [ReclamationController::class, 'index'])->name('reclamation.index');
         Route::put('/reclamations/{reclamation}', [ReclamationController::class, 'update'])->name('reclamations.update');
+
+        Route::resource('annonces', App\Http\Controllers\Professeur\AnnoncesController::class)->only('index');
+
 
     });
 });
@@ -79,7 +81,7 @@ Route::middleware(['auth', 'check.user.type:admin'])->group(function () {
         Route::resource('professeur', \App\Http\Controllers\Admin\ProfesseurController::class);
         Route::resource('etudiant', \App\Http\Controllers\Admin\EtudiantController::class);
         Route::resource('personnel_administratifs', \App\Http\Controllers\Admin\PersonnelAdministratifController::class);
-        Route::resource('annonces', \App\Http\Controllers\Admin\AnnoncesController::class);
+        Route::resource('annonces', \App\Http\Controllers\Admin\AnnoncesController::class)->except('store');
         Route::resource('filieres', \App\Http\Controllers\Admin\FiliereController::class);
         Route::resource('modules', \App\Http\Controllers\Admin\ModuleController::class);
     });
