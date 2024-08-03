@@ -8,6 +8,8 @@ use App\Http\Controllers\ProfesseurController;
 use App\Http\Controllers\ReclamationController;
 use App\Http\Controllers\SecretaireController;
 use App\Http\Controllers\TestController;
+use App\Models\Module;
+use App\Models\Professeur;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -90,4 +92,33 @@ Route::middleware(['auth', 'check.user.type:admin'])->group(function () {
         Route::resource('modules', \App\Http\Controllers\Admin\ModuleController::class);
         Route::resource('emplois-du-temps', \App\Http\Controllers\Admin\EmploiDuTempsController::class);
     });
+});
+
+
+// routes/web.php
+
+// Récupère les modules pour une filière donnée
+Route::get('/api/modules/{filiereId}', function ($filiereId) {
+    return response()->json(Module::where('filiere_id', $filiereId)->get());
+});
+
+// Récupère les professeurs associés à une filière donnée
+Route::get('/api/professeurs/{filiereId}', function ($filiereId) {
+    $professeurs = Professeur::with('user') // Inclure la relation user
+    ->whereHas('modules', function ($query) use ($filiereId) {
+        $query->where('filiere_id', $filiereId);
+    })->get();
+
+    return response()->json($professeurs);
+});
+
+// Récupère le professeur associé à un module donné
+Route::get('/api/professeurs/module/{moduleId}', function ($moduleId) {
+    $module = Module::find($moduleId);
+    if ($module && $module->professeur_id) {
+        $professeur = Professeur::with('user') // Inclure la relation user
+        ->find($module->professeur_id);
+        return response()->json($professeur);
+    }
+    return response()->json([]);
 });

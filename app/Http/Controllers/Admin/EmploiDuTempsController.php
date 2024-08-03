@@ -20,9 +20,7 @@ class EmploiDuTempsController extends Controller
     public function create()
     {
         $filieres = Filiere::all();
-        $modules = Module::all();
-        $professeurs = Professeur::all();
-        return view('admin.emplois_du_temps.create', compact('filieres', 'modules', 'professeurs'));
+        return view('admin.emplois_du_temps.create', compact('filieres'));
     }
 
     public function store(Request $request)
@@ -36,17 +34,26 @@ class EmploiDuTempsController extends Controller
             'heure_fin' => 'required|date_format:H:i'
         ]);
 
+        // Vérifier que le module appartient à la filière sélectionnée
+        $module = Module::find($request->module_id);
+        if ($module->filiere_id != $request->filiere_id) {
+            return back()->withErrors(['module_id' => 'Le module sélectionné n\'appartient pas à la filière sélectionnée.']);
+        }
+
+        // Vérifier que le professeur dispense le module
+        if ($module->professeur_id != $request->professeur_id) {
+            return back()->withErrors(['professeur_id' => 'Le professeur sélectionné ne dispense pas ce module.']);
+        }
+
         EmploiDuTemps::create($request->all());
 
         return redirect()->route('admin.emplois-du-temps.index')->with('success', 'Emploi du temps créé avec succès.');
     }
 
-    public function edit(EmploiDuTemps $emplois_du_temp)
+    public function edit(EmploiDuTemps $emploiDuTemps)
     {
         $filieres = Filiere::all();
-        $modules = Module::all();
-        $professeurs = Professeur::all();
-        return view('admin.emplois_du_temps.edit', compact('emplois_du_temp', 'filieres', 'modules', 'professeurs'));
+        return view('admin.emplois_du_temps.edit', compact('emploiDuTemps', 'filieres'));
     }
 
     public function update(Request $request, EmploiDuTemps $emploiDuTemps)
@@ -60,6 +67,17 @@ class EmploiDuTempsController extends Controller
             'heure_fin' => 'required|date_format:H:i'
         ]);
 
+        // Vérifier que le module appartient à la filière sélectionnée
+        $module = Module::find($request->module_id);
+        if ($module->filiere_id != $request->filiere_id) {
+            return back()->withErrors(['module_id' => 'Le module sélectionné n\'appartient pas à la filière sélectionnée.']);
+        }
+
+        // Vérifier que le professeur dispense le module
+        if ($module->professeur_id != $request->professeur_id) {
+            return back()->withErrors(['professeur_id' => 'Le professeur sélectionné ne dispense pas ce module.']);
+        }
+
         $emploiDuTemps->update($request->all());
 
         return redirect()->route('admin.emplois-du-temps.index')->with('success', 'Emploi du temps mis à jour avec succès.');
@@ -71,4 +89,5 @@ class EmploiDuTempsController extends Controller
 
         return redirect()->route('admin.emplois-du-temps.index')->with('success', 'Emploi du temps supprimé avec succès.');
     }
+
 }

@@ -36,8 +36,8 @@
                        href="{{route('etudiant.ressources.index')}}">Ressource</a>
                 </li>
                 <li class="nav-item">
-                    <a @class(['nav-link','active' => str_contains($route, 'etudiant.')]) aria-current="page"
-                       href="{{route('admin.etudiant.index')}}">Emploi du temps</a>
+                    <a @class(['nav-link','active' => str_contains($route, '.emploi_du_temps')]) aria-current="page"
+                       href="{{route('etudiant.emploi_du_temps')}}">Emploi du temps</a>
                 </li>
                 <li class="nav-item">
                     <a @class(['nav-link','active' => str_contains($route, 'reclamations.')]) aria-current="page"
