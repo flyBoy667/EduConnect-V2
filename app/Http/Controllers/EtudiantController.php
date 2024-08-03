@@ -87,5 +87,15 @@ class EtudiantController extends Controller
         ]);
     }
 
+    public function reclamations()
+    {
+        $etudiant = Auth::user()->etudiants()->first();
+        $reclamations = $etudiant->reclamations;
+
+        return view('etudiant.reclamations', [
+            'reclamations' => $reclamations,
+        ]);
+    }
+
 
 }

@@ -90,6 +90,18 @@
                 </div>
             </div>
             <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        Ressources
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Gérer les reclamation</h5>
+                        <p class="card-text">Ajouter, modifier ou supprimer des reclamation.</p>
+                        <a href="{{ route('professeur.reclamation.index') }}" class="btn btn-primary">Voir la liste</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
             </div>
         </div>
 

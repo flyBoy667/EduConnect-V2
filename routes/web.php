@@ -42,15 +42,16 @@ Route::middleware(['auth', 'check.user.type:etudiant'])->group(function () {
         Route::get('/', [App\Http\Controllers\EtudiantController::class, 'index'])->name('index');
         Route::get('ressources', 'ressources')->name('ressources.index');
         Route::get('notes', 'notes')->name('notes.index');
-        Route::resource('annonces', App\Http\Controllers\EtudiantAnnonceController::class);
-        Route::resource('emploi_du_temps', App\Http\Controllers\EtudiantEmploiDuTempsController::class);
-
+        Route::get('reclamations', 'reclamations')->name('reclamations.index');
+//        Route::resource('annonces', App\Http\Controllers\EtudiantAnnonceController::class);
+//        Route::resource('emploi_du_temps', App\Http\Controllers\EtudiantEmploiDuTempsController::class);
     });
 
 });
 
 Route::middleware('auth')->group(function () {
     Route::post('reclamation', [ReclamationController::class, 'store'])->name('reclamation.store');
+    Route::delete('reclamation', [ReclamationController::class, 'destroy'])->name('reclamation.destroy');
 });
 
 Route::middleware(['auth', 'check.user.type:professeur'])->group(function () {
@@ -65,6 +66,8 @@ Route::middleware(['auth', 'check.user.type:professeur'])->group(function () {
 
         Route::resource('etudiant', \App\Http\Controllers\Professeur\EtudiantController::class)->except(['index', 'update']);
         Route::resource('modules', \App\Http\Controllers\Professeur\ModuleController::class);
+        Route::get('reclamation', [ReclamationController::class, 'index'])->name('reclamation.index');
+        Route::put('/reclamations/{reclamation}', [ReclamationController::class, 'update'])->name('reclamations.update');
 
     });
 });

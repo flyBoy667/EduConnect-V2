@@ -53,6 +53,16 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-3 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Reclamations</h5>
+                        <p class="card-text">Consultez les reclamations.</p>
+                        <a href="{{route('etudiant.reclamations.index')}}" class="btn btn-primary">Voir les reclamations</a>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 @endsection

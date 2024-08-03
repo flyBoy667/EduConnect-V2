@@ -16,7 +16,19 @@ class ReclamationController extends Controller
      */
     public function index()
     {
-        //
+        $professeur = Auth::user()->professeurs()->first();
+        $reclamations = $professeur->modules()->with('reclamations.etudiant.user', 'reclamations.module.etudiants')
+            ->get()
+            ->pluck('reclamations')
+            ->flatten()
+            ->filter(function ($reclamation) {
+                return $reclamation->status === 0; // Filtre uniquement les réclamations en attente
+            });
+
+        return view('professeur.reclamations', [
+            'professeur' => $professeur,
+            'reclamations' => $reclamations
+        ]);
     }
 
     /**
@@ -67,16 +79,34 @@ class ReclamationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Reclamation $reclamation)
     {
-        //
+        $validatedData = $request->validate([
+            'note_examen' => 'nullable|numeric|min:0|max:20',
+            'note_classe' => 'nullable|numeric|min:0|max:20',
+            'status' => 'required|integer|in:0,1,2'
+        ]);
+
+        $etudiant = $reclamation->etudiant;
+        $module = $reclamation->module;
+
+        $etudiant->modules()->updateExistingPivot($module->id, [
+            'note_examen' => $validatedData['note_examen'],
+            'note_classe' => $validatedData['note_classe']
+        ]);
+
+        $reclamation->status = $validatedData['status'];
+        $reclamation->save();
+
+        return Redirect::back()->with('success', 'Réclamation mise à jour avec succès.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Reclamation $reclamation)
     {
-        //
+        $reclamation->delete();
+        return Redirect::back()->with('success', 'Réclamation supprimée avec succès.');
     }
 }

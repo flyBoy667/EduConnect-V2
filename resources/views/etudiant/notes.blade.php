@@ -19,7 +19,7 @@
                     <div class="col-md-4 mb-4">
                         <div class="card shadow-sm">
                             <div class="card-body">
-                                <h5 class="card-title">{{ $module->nom }}</h5>
+                                <h5 class="card-title">{{ $module->nom_module }}</h5>
                                 <p class="card-text"><strong>Note d'examen :</strong> {{ $module->pivot->note_examen ?? 'N/A' }}</p>
                                 <p class="card-text"><strong>Note de classe :</strong> {{ $module->pivot->note_classe ?? 'N/A' }}</p>
                                 <p class="card-text"><strong>Moyenne :</strong>

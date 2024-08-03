@@ -23,7 +23,7 @@ class Reclamation extends BaseModel
         return $this->belongsTo(Etudiant::class);
     }
 
-    public function modules(): BelongsTo
+    public function module(): BelongsTo
     {
         return $this->belongsTo(Module::class);
     }
