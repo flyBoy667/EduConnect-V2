@@ -35,11 +35,11 @@ class QcmController extends Controller
             foreach ($questionData['options'] as $optionData) {
                 $question->options()->create([
                     'option_text' => $optionData['option_text'],
-                    'is_correct' => $optionData['is_correct'],
+                    'is_correct' => isset($optionData['is_correct']),
                 ]);
             }
         }
 
-        return redirect()->route('professeur.qcm.index')->with('success', 'QCM créé avec succès');
+        return back()->with('success', 'QCM créé avec succès');
     }
 }
