@@ -24,20 +24,24 @@
         <div class="collapse navbar-collapse" id="navbarScroll">
             <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
                 <li class="nav-item">
-                    <a @class(['nav-link','active' => str_contains($route, 'etudiant.')]) aria-current="page"
-                       href="{{route('etudiant.index')}}">Notes</a>
+                    <a @class(['nav-link','active' => str_contains($route, 'notes.')]) aria-current="page"
+                       href="{{route('etudiant.notes.index')}}">Notes</a>
                 </li>
                 <li class="nav-item">
-                    <a @class(['nav-link','active' => str_contains($route, 'etudiant.')]) aria-current="page"
-                       href="{{route('admin.etudiant.index')}}">Annonce</a>
+                    <a @class(['nav-link','active' => str_contains($route, 'annonces.')]) aria-current="page"
+                       href="{{route('etudiant.annonces.index')}}">Annonce</a>
                 </li>
                 <li class="nav-item">
-                    <a @class(['nav-link','active' => str_contains($route, 'etudiant.')]) aria-current="page"
-                       href="{{route('admin.etudiant.index')}}">Ressource</a>
+                    <a @class(['nav-link','active' => str_contains($route, 'ressources.')]) aria-current="page"
+                       href="{{route('etudiant.ressources.index')}}">Ressource</a>
                 </li>
                 <li class="nav-item">
                     <a @class(['nav-link','active' => str_contains($route, 'etudiant.')]) aria-current="page"
                        href="{{route('admin.etudiant.index')}}">Emploi du temps</a>
+                </li>
+                <li class="nav-item">
+                    <a @class(['nav-link','active' => str_contains($route, 'reclamations.')]) aria-current="page"
+                       href="{{route('etudiant.reclamations.index')}}">Reclamations</a>
                 </li>
                 {{--                <li class="nav-item">--}}
                 {{--                    <a @class(['nav-link','active' => str_contains($route, 'option.')]) href="{{route('admin.option.index')}}">Gerer--}}

@@ -43,7 +43,7 @@ Route::middleware(['auth', 'check.user.type:etudiant'])->group(function () {
         Route::get('ressources', 'ressources')->name('ressources.index');
         Route::get('notes', 'notes')->name('notes.index');
         Route::get('reclamations', 'reclamations')->name('reclamations.index');
-//        Route::resource('annonces', App\Http\Controllers\EtudiantAnnonceController::class);
+        Route::get('annonces', 'annonces')->name('annonces.index');
 //        Route::resource('emploi_du_temps', App\Http\Controllers\EtudiantEmploiDuTempsController::class);
     });
 

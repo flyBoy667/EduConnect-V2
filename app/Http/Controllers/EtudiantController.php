@@ -97,5 +97,16 @@ class EtudiantController extends Controller
         ]);
     }
 
+    public function annonces()
+    {
+        $etudiant = Auth::user()->etudiants()->first();
+        $filiere = $etudiant->filiere;
+        $annonces = $filiere->annonces()->paginate(6);
+
+        return view('etudiant.annonces', [
+            'annonces' => $annonces,
+        ]);
+    }
+
 
 }

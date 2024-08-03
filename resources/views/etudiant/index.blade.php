@@ -37,7 +37,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Annonces</h5>
                         <p class="card-text">Consultez les dernières annonces et mises à jour.</p>
-                        <a href="" class="btn btn-primary">Voir les annonces</a>
+                        <a href="{{route('etudiant.annonces.index')}}" class="btn btn-primary">Voir les annonces</a>
                     </div>
                 </div>
             </div>
